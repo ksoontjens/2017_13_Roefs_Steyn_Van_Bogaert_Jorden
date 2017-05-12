@@ -8,6 +8,7 @@ package hellotvxlet;
 import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.MediaTracker;
+import java.util.List;
 import java.util.Random;
 import java.util.Timer;
 import org.bluray.ui.event.HRcEvent;
@@ -27,6 +28,8 @@ public class MijnComponent extends HComponent implements UserEventListener {
     Image background;
     int x = 350;
     int y = 0;
+    
+    List cards = new ArrayList();
 
     public MijnComponent(int x1, int y1, int x2, int y2)
     {
