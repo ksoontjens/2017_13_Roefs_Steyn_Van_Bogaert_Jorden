@@ -8,6 +8,7 @@ package hellotvxlet;
 import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.MediaTracker;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 import java.util.Timer;
@@ -19,17 +20,42 @@ import org.dvb.event.UserEventRepository;
 import org.dvb.ui.DVBColor;
 import org.havi.ui.HComponent;
 
-/**
- *
- * @author student
- */
 public class MijnComponent extends HComponent implements UserEventListener {
     
     Image background;
     int x = 350;
     int y = 0;
     
-    List cards = new ArrayList();
+    Random rnd = new Random();
+    
+    String[] userCards = new String[15];
+    String[] computer1Cards = new String[15];
+    String[] computer2Cards = new String[15];
+    
+    int userCardsLeft = 7;
+    int computer1CardsLeft = 7;
+    int computer2CardsLeft = 7;
+    
+    int currentPlayerTurn = 0;
+    boolean clockWise = true;
+    
+    public void PlayGame() {
+        
+        for(int i = 0; i <7; i++)
+        {
+            userCards[i] = "test";
+        }
+        
+        if(currentPlayerTurn == 0)
+        {
+            System.out.println("Player Turn!");
+            System.out.println("userCardsLeft: " +userCardsLeft);
+            
+        }
+    }
+    
+    
+    
 
     public MijnComponent(int x1, int y1, int x2, int y2)
     {
@@ -66,7 +92,7 @@ public class MijnComponent extends HComponent implements UserEventListener {
     }
 
     public void userEventReceived(UserEvent e) {
-        if(e.getType() == HRcEvent.KEY_PRESSED)
+        if(e.getType() == HRcEvent.KEY_PRESSED && currentPlayerTurn == 0)
         {
             if(e.getCode() == HRcEvent.VK_LEFT)
             {
