@@ -43,7 +43,83 @@ public class MijnComponent extends HComponent implements UserEventListener {
         
         for(int i = 0; i <7; i++)
         {
-            userCards[i] = "test";
+            String card;
+            switch(rnd.nextInt(4)+1)
+            {
+                case 1:
+                    card = "yellow_";
+                    break;
+                case 2:
+                    card = "blue_";
+                    break;
+                case 3:
+                    card = "green_";
+                    break;
+                case 4:
+                    card = "red_";
+                    break;
+                case 5:
+                    card = "wild_0";
+                    break;
+                case 6:
+                    card = "wild_1";
+                    break;
+                default:
+                    card = "yellow_";
+                    break;
+            }
+            if(card.equals("wild_0") || card.equals("wild_1"))
+            {
+                
+            }
+            else
+            {
+                switch(rnd.nextInt(13))
+                {
+                    case 0:
+                        card += "0.png";
+                        break;
+                    case 1:
+                        card += "1.png";
+                        break;
+                    case 2:
+                        card += "2.png";
+                        break;
+                    case 3:
+                        card += "3.png";
+                        break;
+                    case 4:
+                        card += "4.png";
+                        break;
+                    case 5:
+                        card += "5.png";
+                        break;
+                    case 6:
+                        card += "6.png";
+                        break;
+                    case 7:
+                        card += "7.png";
+                        break;
+                    case 8:
+                        card += "8.png";
+                        break;
+                    case 9:
+                        card += "9.png";
+                        break;
+                    case 10:
+                        card += "picker.png";
+                        break;
+                    case 11:
+                        card += "reverse.png";
+                        break;
+                    case 12:
+                        card += "skip.png";
+                        break;
+                    default:
+                        card += "0.png";
+                        break;
+                }   
+            }
         }
         
         if(currentPlayerTurn == 0)
