@@ -39,7 +39,16 @@ public class MijnComponent extends HComponent implements UserEventListener {
     int currentPlayerTurn = 0;
     boolean clockWise = true;
     
+    MediaTracker cardTracker = new MediaTracker(this);
+    Image cardtest = this.getToolkit().getImage("blue_0.png");
+    
     public void PlayGame() {
+        cardTracker.addImage(cardtest, 2);
+        try {
+            cardTracker.waitForAll();
+        } catch (InterruptedException ex) {
+            ex.printStackTrace();
+        }
         
         for(int i = 0; i <7; i++)
         {
@@ -59,16 +68,16 @@ public class MijnComponent extends HComponent implements UserEventListener {
                     card = "red_";
                     break;
                 case 5:
-                    card = "wild_0";
+                    card = "wild_0.png";
                     break;
                 case 6:
-                    card = "wild_1";
+                    card = "wild_1.png";
                     break;
                 default:
                     card = "yellow_";
                     break;
             }
-            if(card.equals("wild_0") || card.equals("wild_1"))
+            if(card.equals("wild_0.png") || card.equals("wild_1.png"))
             {
                 
             }
@@ -120,12 +129,193 @@ public class MijnComponent extends HComponent implements UserEventListener {
                         break;
                 }   
             }
+            userCards[i] = card;
+        }
+        
+        for(int i = 0; i <7; i++)
+        {
+            String card;
+            switch(rnd.nextInt(4)+1)
+            {
+                case 1:
+                    card = "yellow_";
+                    break;
+                case 2:
+                    card = "blue_";
+                    break;
+                case 3:
+                    card = "green_";
+                    break;
+                case 4:
+                    card = "red_";
+                    break;
+                case 5:
+                    card = "wild_0.png";
+                    break;
+                case 6:
+                    card = "wild_1.png";
+                    break;
+                default:
+                    card = "yellow_";
+                    break;
+            }
+            if(card.equals("wild_0.png") || card.equals("wild_1.png"))
+            {
+                
+            }
+            else
+            {
+                switch(rnd.nextInt(13))
+                {
+                    case 0:
+                        card += "0.png";
+                        break;
+                    case 1:
+                        card += "1.png";
+                        break;
+                    case 2:
+                        card += "2.png";
+                        break;
+                    case 3:
+                        card += "3.png";
+                        break;
+                    case 4:
+                        card += "4.png";
+                        break;
+                    case 5:
+                        card += "5.png";
+                        break;
+                    case 6:
+                        card += "6.png";
+                        break;
+                    case 7:
+                        card += "7.png";
+                        break;
+                    case 8:
+                        card += "8.png";
+                        break;
+                    case 9:
+                        card += "9.png";
+                        break;
+                    case 10:
+                        card += "picker.png";
+                        break;
+                    case 11:
+                        card += "reverse.png";
+                        break;
+                    case 12:
+                        card += "skip.png";
+                        break;
+                    default:
+                        card += "0.png";
+                        break;
+                }   
+            }
+            computer1Cards[i] = card;
+        }
+        
+        for(int i = 0; i <7; i++)
+        {
+            String card;
+            switch(rnd.nextInt(4)+1)
+            {
+                case 1:
+                    card = "yellow_";
+                    break;
+                case 2:
+                    card = "blue_";
+                    break;
+                case 3:
+                    card = "green_";
+                    break;
+                case 4:
+                    card = "red_";
+                    break;
+                case 5:
+                    card = "wild_0.png";
+                    break;
+                case 6:
+                    card = "wild_1.png";
+                    break;
+                default:
+                    card = "yellow_";
+                    break;
+            }
+            if(card.equals("wild_0.png") || card.equals("wild_1.png"))
+            {
+                
+            }
+            else
+            {
+                switch(rnd.nextInt(13))
+                {
+                    case 0:
+                        card += "0.png";
+                        break;
+                    case 1:
+                        card += "1.png";
+                        break;
+                    case 2:
+                        card += "2.png";
+                        break;
+                    case 3:
+                        card += "3.png";
+                        break;
+                    case 4:
+                        card += "4.png";
+                        break;
+                    case 5:
+                        card += "5.png";
+                        break;
+                    case 6:
+                        card += "6.png";
+                        break;
+                    case 7:
+                        card += "7.png";
+                        break;
+                    case 8:
+                        card += "8.png";
+                        break;
+                    case 9:
+                        card += "9.png";
+                        break;
+                    case 10:
+                        card += "picker.png";
+                        break;
+                    case 11:
+                        card += "reverse.png";
+                        break;
+                    case 12:
+                        card += "skip.png";
+                        break;
+                    default:
+                        card += "0.png";
+                        break;
+                }   
+            }
+            computer2Cards[i] = card;
         }
         
         if(currentPlayerTurn == 0)
         {
             System.out.println("Player Turn!");
             System.out.println("userCardsLeft: " +userCardsLeft);
+            System.out.println("Player cards: ");
+            for(int i = 0; i < userCards.length; i++)
+            {
+                System.out.print(userCards[i] + " - ");
+            }
+            
+            System.out.println("PC1 cards: ");
+            for(int i = 0; i < computer1Cards.length; i++)
+            {
+                System.out.print(computer1Cards[i] + " - ");
+            }
+            System.out.println("PC2 cards: ");
+            for(int i = 0; i < computer2Cards.length; i++)
+            {
+                System.out.print(computer2Cards[i] + " - ");
+            }
             
         }
     }
@@ -151,6 +341,7 @@ public class MijnComponent extends HComponent implements UserEventListener {
         EventManager manager = EventManager.getInstance();
         manager.addUserEventListener(this, repo); //bovenaan bij implement UserEventListener toevoegen
         
+        PlayGame();
     }
     
     
@@ -159,6 +350,7 @@ public class MijnComponent extends HComponent implements UserEventListener {
     {
           g.drawImage(background, 0, y, null);
           g.drawImage(background, 0, y-570, null);
+          g.drawImage(cardtest, 0, 495, 50, 75, null);
           //g.drawImage(schip, x, 500, null);
 //        g.setColor(new DVBColor(0,0,255,127));
 //        g.fillRoundRect(0,0,200,100,15,15); //x,y,w,h,r1,r2
