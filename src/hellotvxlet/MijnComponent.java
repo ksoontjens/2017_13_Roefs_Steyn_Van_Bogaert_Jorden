@@ -47,6 +47,9 @@ public class MijnComponent extends HComponent implements  /*UserEventListener,*/
     int currentPlayerTurn = 0;
     boolean clockWise = true;
     
+    int chanceOfWildCard = 10;
+    int maxRandom = 4;
+    
 //    MediaTracker cardTracker = new MediaTracker(this);
 //    Image cardtest = this.getToolkit().getImage("blue_0.png");
 //    
@@ -97,10 +100,22 @@ public class MijnComponent extends HComponent implements  /*UserEventListener,*/
     }
     
     public void DivideCardsOnStart() {
+        
+        
          for(int i = 0; i <7; i++)
         {
             String card;
-            switch(rnd.nextInt(6)+1)
+            
+            if(chanceOfWildCard > rnd.nextInt(100)) 
+            {
+                maxRandom = 6;
+            }
+            else
+            {
+                maxRandom = 4;
+            } 
+            
+            switch(rnd.nextInt(maxRandom)+1)
             {
                 case 1:
                     card = "yellow_";
@@ -206,7 +221,15 @@ public class MijnComponent extends HComponent implements  /*UserEventListener,*/
         for(int i = 0; i <7; i++)
         {
             String card;
-            switch(rnd.nextInt(6)+1)
+            if(chanceOfWildCard > rnd.nextInt(100)) 
+            {
+                maxRandom = 6;
+            }
+            else
+            {
+                maxRandom = 4;
+            } 
+            switch(rnd.nextInt(maxRandom)+1)
             {
                 case 1:
                     card = "yellow_";
@@ -288,7 +311,15 @@ public class MijnComponent extends HComponent implements  /*UserEventListener,*/
         for(int i = 0; i <7; i++)
         {
             String card;
-            switch(rnd.nextInt(6)+1)
+            if(chanceOfWildCard > rnd.nextInt(100)) 
+            {
+                maxRandom = 6;
+            }
+            else
+            {
+                maxRandom = 4;
+            } 
+            switch(rnd.nextInt(maxRandom)+1)
             {
                 case 1:
                     card = "yellow_";
