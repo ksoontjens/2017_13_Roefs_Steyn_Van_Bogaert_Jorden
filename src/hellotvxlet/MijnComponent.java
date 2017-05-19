@@ -50,30 +50,9 @@ public class MijnComponent extends HComponent implements  /*UserEventListener,*/
     int chanceOfWildCard = 10;
     int maxRandom = 4;
     
-//    MediaTracker cardTracker = new MediaTracker(this);
-//    Image cardtest = this.getToolkit().getImage("blue_0.png");
-//    
-//    int tracker = 2;
-    
     public void PlayGame() {
         
-        DivideCardsOnStart();
-        
-//        for(int i = 0; i < userCardsImages.length; i++)
-//        {
-//            if(userCardsImages[i] != null)
-//            {
-//                userCardsButtons[i].setBackgroundMode(HVisible.BACKGROUND_FILL);
-//                cardTracker.addImage(userCardsImages[i], tracker);
-//                tracker++;
-//            }
-//        }
-//        try {
-//            cardTracker.waitForAll();
-//        } catch (InterruptedException ex) {
-//            ex.printStackTrace();
-//        }
-        
+        DivideCardsOnStart();        
         
         if(currentPlayerTurn == 0)
         {
@@ -423,11 +402,6 @@ public class MijnComponent extends HComponent implements  /*UserEventListener,*/
         } catch (InterruptedException ex) {
             ex.printStackTrace();
         }
-//        UserEventRepository repo = new UserEventRepository("repo");
-//        repo.addAllArrowKeys();
-//        repo.addKey(HRcEvent.VK_ENTER);
-//        EventManager manager = EventManager.getInstance();
-//        manager.addUserEventListener(this, repo); //bovenaan bij implement UserEventListener toevoegen
         
         PlayGame();
     }
@@ -437,39 +411,7 @@ public class MijnComponent extends HComponent implements  /*UserEventListener,*/
     public void paint(Graphics g) 
     {
           g.drawImage(background, 0, y, null);
-//          g.drawImage(cardtest, 0, 495, 50, 75, null);
-//          for(int i = 0; i < userCardsImages.length; i++)
-//          {
-//              if(userCardsImages[i] != null)
-//              {
-//                  g.drawImage(userCardsImages[i],(5+(i*55)),495, 50, 75, null);
-//              }
-//          }
-          //g.drawImage(schip, x, 500, null);
-//        g.setColor(new DVBColor(0,0,255,127));
-//        g.fillRoundRect(0,0,200,100,15,15); //x,y,w,h,r1,r2
-//        g.fillRoundRect(5,5,200,100,15,15); //x,y,w,h,r1,r2
-//        g.setColor(new DVBColor(255,255,0,255));
-//        g.drawString("Dit is tekst", 40, 40);
     }
-
-//    public void userEventReceived(UserEvent e) {
-//        if(e.getType() == HRcEvent.KEY_PRESSED && currentPlayerTurn == 0)
-//        {
-//            if(e.getCode() == HRcEvent.VK_LEFT)
-//            {
-//                System.out.println("left key");
-//            }
-//            if(e.getCode() == HRcEvent.VK_RIGHT)
-//            {
-//                System.out.println("right key");
-//            }
-//            if(e.getCode() == HRcEvent.VK_ENTER)
-//            {
-//                System.out.println("enter key");
-//            }
-//        }
-//    }
 
     public void actionPerformed(ActionEvent arg0) { //If enter is pressed on a card (button)
         System.out.println("ACTION="+arg0.getActionCommand());
