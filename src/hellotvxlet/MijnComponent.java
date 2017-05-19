@@ -32,6 +32,8 @@ public class MijnComponent extends HComponent implements UserEventListener {
     String[] computer1Cards = new String[15];
     String[] computer2Cards = new String[15];
     
+    Image[] userCardsImages = new Image[15];
+    
     int userCardsLeft = 7;
     int computer1CardsLeft = 7;
     int computer2CardsLeft = 7;
@@ -42,15 +44,53 @@ public class MijnComponent extends HComponent implements UserEventListener {
     MediaTracker cardTracker = new MediaTracker(this);
     Image cardtest = this.getToolkit().getImage("blue_0.png");
     
+    int tracker = 2;
+    
     public void PlayGame() {
-        cardTracker.addImage(cardtest, 2);
+        
+        DivideCardsOnStart();
+        
+        for(int i = 0; i < userCardsImages.length; i++)
+        {
+            if(userCardsImages[i] != null)
+            {
+                cardTracker.addImage(userCardsImages[i], tracker);
+                tracker++;
+            }
+        }
         try {
             cardTracker.waitForAll();
         } catch (InterruptedException ex) {
             ex.printStackTrace();
         }
         
-        for(int i = 0; i <7; i++)
+        
+        if(currentPlayerTurn == 0)
+        {
+            System.out.println("Player Turn!");
+            System.out.println("userCardsLeft: " +userCardsLeft);
+            System.out.println("Player cards: ");
+            for(int i = 0; i < userCards.length; i++)
+            {
+                System.out.print(userCards[i] + " - ");
+            }
+            
+            System.out.println("PC1 cards: ");
+            for(int i = 0; i < computer1Cards.length; i++)
+            {
+                System.out.print(computer1Cards[i] + " - ");
+            }
+            System.out.println("PC2 cards: ");
+            for(int i = 0; i < computer2Cards.length; i++)
+            {
+                System.out.print(computer2Cards[i] + " - ");
+            }
+            
+        }
+    }
+    
+    public void DivideCardsOnStart() {
+         for(int i = 0; i <7; i++)
         {
             String card;
             switch(rnd.nextInt(4)+1)
@@ -131,6 +171,14 @@ public class MijnComponent extends HComponent implements UserEventListener {
             }
             userCards[i] = card;
         }
+         
+         for(int i = 0; i < userCards.length; i++)
+         {
+             if(userCards[i] != null)
+             {
+                 userCardsImages[i] = this.getToolkit().getImage(userCards[i]);
+             }
+         }
         
         for(int i = 0; i <7; i++)
         {
@@ -295,29 +343,10 @@ public class MijnComponent extends HComponent implements UserEventListener {
             }
             computer2Cards[i] = card;
         }
-        
-        if(currentPlayerTurn == 0)
-        {
-            System.out.println("Player Turn!");
-            System.out.println("userCardsLeft: " +userCardsLeft);
-            System.out.println("Player cards: ");
-            for(int i = 0; i < userCards.length; i++)
-            {
-                System.out.print(userCards[i] + " - ");
-            }
-            
-            System.out.println("PC1 cards: ");
-            for(int i = 0; i < computer1Cards.length; i++)
-            {
-                System.out.print(computer1Cards[i] + " - ");
-            }
-            System.out.println("PC2 cards: ");
-            for(int i = 0; i < computer2Cards.length; i++)
-            {
-                System.out.print(computer2Cards[i] + " - ");
-            }
-            
-        }
+    }
+    
+    public String TakeACard() {
+        return "s";
     }
     
     
@@ -350,7 +379,14 @@ public class MijnComponent extends HComponent implements UserEventListener {
     {
           g.drawImage(background, 0, y, null);
           g.drawImage(background, 0, y-570, null);
-          g.drawImage(cardtest, 0, 495, 50, 75, null);
+          //g.drawImage(cardtest, 0, 495, 50, 75, null);
+          for(int i = 0; i < userCardsImages.length; i++)
+          {
+              if(userCardsImages[i] != null)
+              {
+                  g.drawImage(userCardsImages[i],(5+(i*55)),495, 50, 75, null);
+              }
+          }
           //g.drawImage(schip, x, 500, null);
 //        g.setColor(new DVBColor(0,0,255,127));
 //        g.fillRoundRect(0,0,200,100,15,15); //x,y,w,h,r1,r2
