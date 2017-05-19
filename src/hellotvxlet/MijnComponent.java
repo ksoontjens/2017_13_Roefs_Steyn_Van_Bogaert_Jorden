@@ -31,6 +31,7 @@ public class MijnComponent extends HComponent implements UserEventListener {
     String[] userCards = new String[15];
     String[] computer1Cards = new String[15];
     String[] computer2Cards = new String[15];
+    string lastPlayedCard;
     
     Image[] userCardsImages = new Image[15];
     
@@ -424,8 +425,20 @@ public class MijnComponent extends HComponent implements UserEventListener {
         return card;
     }
     
-    public bool CardPlayable("blue_1")
+    public Bool CardPlayable(String card)
     {
+        if (card.equals("wild_0.png") || card.equals("wild_1.png"))
+        {
+            return true;
+        }   
+        else if (card.substring(0,3).equals(lastPlayedCard.substring(0,3)))
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
         
     }
     
