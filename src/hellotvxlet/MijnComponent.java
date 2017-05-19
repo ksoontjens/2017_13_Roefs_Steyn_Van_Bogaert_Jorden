@@ -47,10 +47,10 @@ public class MijnComponent extends HComponent implements  /*UserEventListener,*/
     int currentPlayerTurn = 0;
     boolean clockWise = true;
     
-    MediaTracker cardTracker = new MediaTracker(this);
+//    MediaTracker cardTracker = new MediaTracker(this);
 //    Image cardtest = this.getToolkit().getImage("blue_0.png");
-    
-    int tracker = 2;
+//    
+//    int tracker = 2;
     
     public void PlayGame() {
         
@@ -65,11 +65,11 @@ public class MijnComponent extends HComponent implements  /*UserEventListener,*/
 //                tracker++;
 //            }
 //        }
-        try {
-            cardTracker.waitForAll();
-        } catch (InterruptedException ex) {
-            ex.printStackTrace();
-        }
+//        try {
+//            cardTracker.waitForAll();
+//        } catch (InterruptedException ex) {
+//            ex.printStackTrace();
+//        }
         
         
         if(currentPlayerTurn == 0)
@@ -100,7 +100,7 @@ public class MijnComponent extends HComponent implements  /*UserEventListener,*/
          for(int i = 0; i <7; i++)
         {
             String card;
-            switch(rnd.nextInt(4)+1)
+            switch(rnd.nextInt(6)+1)
             {
                 case 1:
                     card = "yellow_";
@@ -206,7 +206,7 @@ public class MijnComponent extends HComponent implements  /*UserEventListener,*/
         for(int i = 0; i <7; i++)
         {
             String card;
-            switch(rnd.nextInt(4)+1)
+            switch(rnd.nextInt(6)+1)
             {
                 case 1:
                     card = "yellow_";
@@ -288,7 +288,7 @@ public class MijnComponent extends HComponent implements  /*UserEventListener,*/
         for(int i = 0; i <7; i++)
         {
             String card;
-            switch(rnd.nextInt(4)+1)
+            switch(rnd.nextInt(6)+1)
             {
                 case 1:
                     card = "yellow_";
