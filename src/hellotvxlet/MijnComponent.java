@@ -8,6 +8,7 @@ package hellotvxlet;
 import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.MediaTracker;
+import java.awt.event.ActionEvent;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -19,21 +20,27 @@ import org.dvb.event.UserEventListener;
 import org.dvb.event.UserEventRepository;
 import org.dvb.ui.DVBColor;
 import org.havi.ui.HComponent;
+import org.havi.ui.HGraphicButton;
+import org.havi.ui.HScene;
+import org.havi.ui.HVisible;
+import org.havi.ui.event.HActionListener;
 
-public class MijnComponent extends HComponent implements UserEventListener {
+public class MijnComponent extends HComponent implements  /*UserEventListener,*/ HActionListener {
     
     Image background;
     int x = 350;
     int y = 0;
-    
+    HScene scene;
     Random rnd = new Random();
     
-    String[] userCards = new String[15];
-    String[] computer1Cards = new String[15];
-    String[] computer2Cards = new String[15];
+
+    String[] userCards = new String[12];
+    String[] computer1Cards = new String[12];
+    String[] computer2Cards = new String[12];
     string lastPlayedCard;
     
     Image[] userCardsImages = new Image[15];
+    HGraphicButton[] userCardsButtons = new HGraphicButton[12];
     
     int userCardsLeft = 7;
     int computer1CardsLeft = 7;
@@ -42,29 +49,12 @@ public class MijnComponent extends HComponent implements UserEventListener {
     int currentPlayerTurn = 0;
     boolean clockWise = true;
     
-    MediaTracker cardTracker = new MediaTracker(this);
-    Image cardtest = this.getToolkit().getImage("blue_0.png");
-    
-    int tracker = 2;
+    int chanceOfWildCard = 10;
+    int maxRandom = 4;
     
     public void PlayGame() {
         
-        DivideCardsOnStart();
-        
-        for(int i = 0; i < userCardsImages.length; i++)
-        {
-            if(userCardsImages[i] != null)
-            {
-                cardTracker.addImage(userCardsImages[i], tracker);
-                tracker++;
-            }
-        }
-        try {
-            cardTracker.waitForAll();
-        } catch (InterruptedException ex) {
-            ex.printStackTrace();
-        }
-        
+        DivideCardsOnStart();        
         
         if(currentPlayerTurn == 0)
         {
@@ -91,10 +81,22 @@ public class MijnComponent extends HComponent implements UserEventListener {
     }
     
     public void DivideCardsOnStart() {
+        
+        
          for(int i = 0; i <7; i++)
         {
             String card;
-            switch(rnd.nextInt(4)+1)
+            
+            if(chanceOfWildCard > rnd.nextInt(100)) 
+            {
+                maxRandom = 6;
+            }
+            else
+            {
+                maxRandom = 4;
+            } 
+            
+            switch(rnd.nextInt(maxRandom)+1)
             {
                 case 1:
                     card = "yellow_";
@@ -178,13 +180,37 @@ public class MijnComponent extends HComponent implements UserEventListener {
              if(userCards[i] != null)
              {
                  userCardsImages[i] = this.getToolkit().getImage(userCards[i]);
+                 userCardsButtons[i] = new HGraphicButton(userCardsImages[i], (5+(i*55)),495, 50, 75);
+                   userCardsButtons[i].setActionCommand(String.valueOf(i));
+                     userCardsButtons[i].addHActionListener(this);
+                 scene.add(userCardsButtons[i]);
+                 
+                 scene.repaint();
              }
          }
-        
+           for(int i = 0; i < userCards.length; i++)
+         {
+             if(userCards[i] != null)
+             {
+                 HGraphicButton links=null,rechts=null;
+                 if (i>0) links=userCardsButtons[i-1];
+                 if (i<userCards.length-1) rechts=userCardsButtons[i+1];
+              userCardsButtons[i].setFocusTraversal(null,null,links,rechts);
+             }
+         }      
+         userCardsButtons[0].requestFocus();
         for(int i = 0; i <7; i++)
         {
             String card;
-            switch(rnd.nextInt(4)+1)
+            if(chanceOfWildCard > rnd.nextInt(100)) 
+            {
+                maxRandom = 6;
+            }
+            else
+            {
+                maxRandom = 4;
+            } 
+            switch(rnd.nextInt(maxRandom)+1)
             {
                 case 1:
                     card = "yellow_";
@@ -266,7 +292,15 @@ public class MijnComponent extends HComponent implements UserEventListener {
         for(int i = 0; i <7; i++)
         {
             String card;
-            switch(rnd.nextInt(4)+1)
+            if(chanceOfWildCard > rnd.nextInt(100)) 
+            {
+                maxRandom = 6;
+            }
+            else
+            {
+                maxRandom = 4;
+            } 
+            switch(rnd.nextInt(maxRandom)+1)
             {
                 case 1:
                     card = "yellow_";
@@ -425,6 +459,7 @@ public class MijnComponent extends HComponent implements UserEventListener {
         return card;
     }
     
+
     public Bool CardPlayable(String card)
     {
         if (card.equals("wild_0.png") || card.equals("wild_1.png"))
@@ -441,10 +476,12 @@ public class MijnComponent extends HComponent implements UserEventListener {
         }
         
     }
+
     
 
-    public MijnComponent(int x1, int y1, int x2, int y2)
+    public MijnComponent(int x1, int y1, int x2, int y2, HScene scene)
     {
+        this.scene=scene;
         this.setBounds(x1, y1, x2, y2);
         //C:\Program Files\TechnoTrend\TT-MHP-Browser\fileio\DSMCC\0.0.3
         background = this.getToolkit().getImage("background.jpg");
@@ -455,11 +492,6 @@ public class MijnComponent extends HComponent implements UserEventListener {
         } catch (InterruptedException ex) {
             ex.printStackTrace();
         }
-        UserEventRepository repo = new UserEventRepository("repo");
-        repo.addAllArrowKeys();
-        repo.addKey(HRcEvent.VK_ENTER);
-        EventManager manager = EventManager.getInstance();
-        manager.addUserEventListener(this, repo); //bovenaan bij implement UserEventListener toevoegen
         
         PlayGame();
     }
@@ -469,38 +501,9 @@ public class MijnComponent extends HComponent implements UserEventListener {
     public void paint(Graphics g) 
     {
           g.drawImage(background, 0, y, null);
-          g.drawImage(background, 0, y-570, null);
-          //g.drawImage(cardtest, 0, 495, 50, 75, null);
-          for(int i = 0; i < userCardsImages.length; i++)
-          {
-              if(userCardsImages[i] != null)
-              {
-                  g.drawImage(userCardsImages[i],(5+(i*55)),495, 50, 75, null);
-              }
-          }
-          //g.drawImage(schip, x, 500, null);
-//        g.setColor(new DVBColor(0,0,255,127));
-//        g.fillRoundRect(0,0,200,100,15,15); //x,y,w,h,r1,r2
-//        g.fillRoundRect(5,5,200,100,15,15); //x,y,w,h,r1,r2
-//        g.setColor(new DVBColor(255,255,0,255));
-//        g.drawString("Dit is tekst", 40, 40);
     }
 
-    public void userEventReceived(UserEvent e) {
-        if(e.getType() == HRcEvent.KEY_PRESSED && currentPlayerTurn == 0)
-        {
-            if(e.getCode() == HRcEvent.VK_LEFT)
-            {
-                System.out.println("left key");
-            }
-            if(e.getCode() == HRcEvent.VK_RIGHT)
-            {
-                System.out.println("right key");
-            }
-            if(e.getCode() == HRcEvent.VK_ENTER)
-            {
-                System.out.println("enter key");
-            }
-        }
+    public void actionPerformed(ActionEvent arg0) { //If enter is pressed on a card (button)
+        System.out.println("ACTION="+arg0.getActionCommand());
     }
 }

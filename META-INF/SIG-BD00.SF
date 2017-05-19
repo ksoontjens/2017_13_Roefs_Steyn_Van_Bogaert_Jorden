@@ -1,7 +1,7 @@
 Signature-Version: 1.0
 Created-By: 1.6.0_16 (Sun Microsystems Inc.)
 BDJ-Signature-Version: 1.0
-SHA1-Digest-Manifest: 7BnIfsXlGyi0IwEwMQxWc1QfVVw=
+SHA1-Digest-Manifest: QyiDGa6EOsDkWaIYtwIfbKCm2IE=
 
 Name: blue_picker.png
 SHA1-Digest: ZUEPKQAt1UPd6Jc2WTklkh5W5eY=
@@ -39,6 +39,9 @@ SHA1-Digest: 84ZO/rYCyy0JStmaLbg1GDVEFhQ=
 Name: yellow_8.png
 SHA1-Digest: LdGjHhtZh/Lm6vYw2DuAj5gVHww=
 
+Name: wild_1.png
+SHA1-Digest: IduDFNd3vc+VRTWq/a6DgQrNjJw=
+
 Name: green_1.png
 SHA1-Digest: 3GuQBwjxEyade0RZrmjU6GGI7Jc=
 
@@ -64,7 +67,7 @@ Name: blue_0.png
 SHA1-Digest: wIfRgAdQ1ujLfao1XobYxUWppEQ=
 
 Name: hellotvxlet/MijnComponent.class
-SHA1-Digest: enVcYZKRjcC3czqaWl7ZZ7s5PaE=
+SHA1-Digest: u2nmDV9rWG/aKkgsz7eiw3o1Soc=
 
 Name: red_2.png
 SHA1-Digest: iSQErisDfmW/TUcyBl+x5d5WPv0=
@@ -72,11 +75,11 @@ SHA1-Digest: iSQErisDfmW/TUcyBl+x5d5WPv0=
 Name: yellow_0.png
 SHA1-Digest: Dfv8uXZrjAgN5F80mM7g/udocTs=
 
-Name: green_2.png
-SHA1-Digest: 4z/YmNqC/2Lc4v93iyoioetBQD8=
-
 Name: green_5.png
 SHA1-Digest: mKNxYbrN9BpAU5OgfaxePlZzoKI=
+
+Name: green_2.png
+SHA1-Digest: 4z/YmNqC/2Lc4v93iyoioetBQD8=
 
 Name: blue_2.png
 SHA1-Digest: 6Dq6DPKwdlP2AXu1a/eJofYT2D8=
@@ -108,9 +111,6 @@ SHA1-Digest: nNLF6AyZoi+lOuspcXHtHNHuD5s=
 Name: blue_9.png
 SHA1-Digest: RuKbTTl7KgHxQs5FUiZOgP1rUQU=
 
-Name: wild_pick_four.png
-SHA1-Digest: WLrg61F3QD/KdMmUoFWTOYHf/VA=
-
 Name: red_7.png
 SHA1-Digest: LXtG662Ug3CrdoGcQOejYuGE59E=
 
@@ -124,7 +124,7 @@ Name: green_9.png
 SHA1-Digest: S/gj0bxFmRQN5hJAe3Jj6ZSK/t4=
 
 Name: hellotvxlet/HelloTVXlet.class
-SHA1-Digest: bVUR87hHKZfyqeVcDMdMBhBAGPU=
+SHA1-Digest: WtEThh3PP85PdlngtW765QwtDis=
 
 Name: yellow_9.png
 SHA1-Digest: tcQgX2IqXRuqRvTawbdKprDmt70=
@@ -134,6 +134,9 @@ SHA1-Digest: 3WGV5rtCiHcZIsx+y9UWNpsXW6c=
 
 Name: red_5.png
 SHA1-Digest: fehyj8bgTHWRGd+AlTzdE3LD8tI=
+
+Name: wild_0.png
+SHA1-Digest: NpwSN+TKDbyB2PTYYcDbJh9YEK0=
 
 Name: background.jpg
 SHA1-Digest: dqSLfICLpDYRTVsAy3SYs0aD1Y4=
@@ -176,9 +179,6 @@ SHA1-Digest: sdxswFajFrUZpPbPfXmjWzY9KNc=
 
 Name: yellow_7.png
 SHA1-Digest: hgEaVyE2YU4HH4BJn0lR2Fx11vk=
-
-Name: wild_color_changer.png
-SHA1-Digest: XlrZTRtDB04qKWelMf5i+TCoCg8=
 
 Name: green_4.png
 SHA1-Digest: uslibQE7YcNdX83jRxDkDxunJao=

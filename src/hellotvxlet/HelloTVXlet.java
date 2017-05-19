@@ -17,7 +17,7 @@ import org.havi.ui.event.HActionListener;
 
 
 public class HelloTVXlet implements Xlet {
-    HScene scene;
+    public HScene scene;
     HSceneTemplate sceneTemplate;
   
     public HelloTVXlet() {
@@ -32,8 +32,8 @@ public class HelloTVXlet implements Xlet {
       
       scene=HSceneFactory.getInstance().getBestScene(sceneTemplate);
      
-      MijnComponent background = new MijnComponent(0,0,720,576);
-      scene.add(background);
+      MijnComponent gameView = new MijnComponent(0,0,720,576,scene);
+      scene.add(gameView,scene);
       
       scene.validate();
       scene.setVisible(true);
