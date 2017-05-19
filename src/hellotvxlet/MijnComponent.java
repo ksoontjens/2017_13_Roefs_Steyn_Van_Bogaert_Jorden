@@ -349,7 +349,7 @@ public class MijnComponent extends HComponent implements UserEventListener {
         for(int i = 0; i <7; i++)
         {
             String card;
-            switch(rnd.nextInt(4)+1)
+            switch(rnd.nextInt(6)+1)
             {
                 case 1:
                     card = "yellow_";
@@ -424,7 +424,10 @@ public class MijnComponent extends HComponent implements UserEventListener {
         return card;
     }
     
-    
+    public bool CardPlayable("blue_1")
+    {
+        
+    }
     
 
     public MijnComponent(int x1, int y1, int x2, int y2)
