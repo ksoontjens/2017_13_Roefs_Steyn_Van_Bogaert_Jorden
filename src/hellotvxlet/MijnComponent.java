@@ -71,6 +71,17 @@ public class MijnComponent extends HComponent implements  /*UserEventListener,*/
         }
     }
     
+//    public void DrawComputerCards() {
+//        Image cardBack = this.getToolkit().getImage("yellow_0.png");
+//        HGraphicButton[] pcCards = new HGraphicButton[12];
+//        for(int i = 0; i < computer1CardsLeft; i++)
+//        {
+//            pcCards[i] = new HGraphicButton(cardBack, (5+(i*55)),0, 50, 75);
+//            scene.add(pcCards[i]);
+//        }
+//        scene.repaint();
+//    }
+    
     public void RandomCardMiddle() {
         switch(rnd.nextInt(maxRandom)+1)
             {
@@ -531,12 +542,12 @@ public class MijnComponent extends HComponent implements  /*UserEventListener,*/
         
     }
     
-    public void StartComputerTurn(Int computerNum)
+    public void StartComputerTurn(int computerNum)
     {
-        boolean cardPlayed = false;
         switch (computerNum)
+        {
             case 1:
-                for(int i = 0; i < computer1Cards.Length; i++)
+                for(int i = 0; i < computer1Cards.length; i++)
                 {
                    if(CardPlayable(computer1Cards[i]))
                    {
@@ -546,7 +557,7 @@ public class MijnComponent extends HComponent implements  /*UserEventListener,*/
                     }
                 }
             case 2:
-                for(int i = 0; i < computer2Cards.Length; i++)
+                for(int i = 0; i < computer2Cards.length; i++)
                 {
                    if(CardPlayable(computer2Cards[i]))
                    {
@@ -555,6 +566,7 @@ public class MijnComponent extends HComponent implements  /*UserEventListener,*/
                         break;
                     }
                 }            
+    }
     }
 
 
@@ -580,7 +592,7 @@ public class MijnComponent extends HComponent implements  /*UserEventListener,*/
         
         if(currentPlayerTurn != 0)
         {
-            StartComputerTurn(currentPlayerTurn)
+            StartComputerTurn(currentPlayerTurn);
         }
     }
     
