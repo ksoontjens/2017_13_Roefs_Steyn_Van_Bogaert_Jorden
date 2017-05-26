@@ -38,7 +38,6 @@ public class MijnComponent extends HComponent implements  /*UserEventListener,*/
     String[] userCards = new String[12];
     String[] computer1Cards = new String[12];
     String[] computer2Cards = new String[12];
-    string lastPlayedCard;
     
     Image[] userCardsImages = new Image[15];
     HGraphicButton[] userCardsButtons = new HGraphicButton[12];
@@ -60,12 +59,14 @@ public class MijnComponent extends HComponent implements  /*UserEventListener,*/
     
     public void PlayGame() {
         
-        DivideCardsOnStart();        
+        DivideCardsOnStart();
+        currentPlayerTurn = 0;
         
         if(currentPlayerTurn == 0)
         {
             System.out.println("Player Turn!");
             System.out.println("userCardsLeft: " +userCardsLeft);
+            
             
         }
     }
@@ -435,8 +436,6 @@ public class MijnComponent extends HComponent implements  /*UserEventListener,*/
     
     public String TakeACard() {
 
-        for(int i = 0; i <7; i++)
-        {
             String card;
             switch(rnd.nextInt(6)+1)
             {
@@ -508,23 +507,20 @@ public class MijnComponent extends HComponent implements  /*UserEventListener,*/
                     default:
                         card += "0.png";
                         break;
-                }   
+                }
+                return card;
             }
-        return card;
-
-        System.out.println("reached it");
-        return "s";
-
+            return card;
     }
     
 
-    public Bool CardPlayable(String card)
+    public boolean CardPlayable(String card)
     {
         if (card.equals("wild_0.png") || card.equals("wild_1.png"))
         {
             return true;
         }   
-        else if (card.substring(0,3).equals(lastPlayedCard.substring(0,3)))
+        else if (card.substring(0,3).equals(lastCardPlayed.substring(0,3)))
         {
             return true;
         }
@@ -581,24 +577,117 @@ public class MijnComponent extends HComponent implements  /*UserEventListener,*/
             ex.printStackTrace();
         }
         
-        PlayGame();
+        PlayGame();        
         deck.setFocusTraversal(null,userCardsButtons[0],null,null);
     }
     
     
-    //OEF 2 BLZ 44
     public void paint(Graphics g) //scherm is 720 x 576
     {
           g.drawImage(background, 0, y, null);
           g.drawImage(lastCardPlayedImage, (720/2)-10, (576/2)-60, 50, 75, null);
           g.drawImage(cardDeck, (720/2)+50, (576/2)-60, 50, 75, null);
     }
+    
+    public void SetFocusValues() {
+        
+        HGraphicButton links = null;
+        HGraphicButton rechts = null;
+        HGraphicButton down = null;
+        
+        for (int i = 0; i < userCardsButtons.length; i++)
+        {
+            if(userCardsButtons[i] != null)
+            {
+                down = userCardsButtons[i];
+                break;
+            }
+        }
+        deck.setFocusTraversal(null, down, null, null);
+        
+        for(int i = 0; i < userCardsButtons.length; i++)
+        {
+            if(i == 0)
+            {
+                if(userCardsButtons[i] != null)
+                {
+                    for(int j = i+1; j < userCardsButtons.length; j++)
+                    {
+                        if(userCardsButtons[j] != null)
+                        {
+                            rechts = userCardsButtons[j];
+                            break;
+                        }
+                    }
+                    userCardsButtons[i].setFocusTraversal(deck,null,null,rechts);
+                }
+            }
+            
+            if(i == 11)
+            {
+                if(userCardsButtons[i] != null)
+                {
+                    for(int j = i-1; j >= 0; j--)
+                    {
+                        if(userCardsButtons[j] != null)
+                        {
+                            links = userCardsButtons[j];
+                            break;
+                        }
+                    }
+                    userCardsButtons[i].setFocusTraversal(deck,null,links,null);
+                }
+            }
+            
+            if(i != 0 && i != 11)
+            {
+                if(userCardsButtons[i] != null)
+                {
+                    for(int j = i+1; j < userCardsButtons.length; j++)
+                    {
+                        if(userCardsButtons[j] != null)
+                        {
+                            rechts = userCardsButtons[j];
+                            break;
+                        }
+                    }
+                    for(int j = i-1; j >= 0; j--)
+                    {
+                        if(userCardsButtons[j] != null)
+                        {
+                            links = userCardsButtons[j];
+                            break;
+                        }
+                    }
+                    userCardsButtons[i].setFocusTraversal(deck,null,links,rechts);
+                }
+            }
+        }
+    }
 
     public void actionPerformed(ActionEvent arg0) { //If enter is pressed on a card (button)
         System.out.println("ACTION="+arg0.getActionCommand());
-        if(arg0.getActionCommand().equals("TakeACard"))
+        if(currentPlayerTurn == 0)
         {
-            TakeACard();
+          if(arg0.getActionCommand().equals("TakeACard"))
+            {
+                System.out.println(TakeACard());
+            }
+          else
+          {
+              if(CardPlayable(userCards[Integer.parseInt(arg0.getActionCommand())]))
+              {
+                  lastCardPlayed = userCards[Integer.parseInt(arg0.getActionCommand())];
+                  lastCardPlayedImage = this.getToolkit().getImage(lastCardPlayed);
+                  userCards[Integer.parseInt(arg0.getActionCommand())] = null;
+                  userCardsImages[Integer.parseInt(arg0.getActionCommand())] = null;
+                  scene.remove(userCardsButtons[Integer.parseInt(arg0.getActionCommand())]);
+                  userCardsButtons[Integer.parseInt(arg0.getActionCommand())] = null;
+                  scene.repaint();
+                  SetFocusValues();
+              }
+          }
+          
         }
 //        lastCardPlayedImage = this.getToolkit().getImage(("card_back.png"));
 //        scene.repaint();
