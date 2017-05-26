@@ -596,9 +596,114 @@ public class MijnComponent extends HComponent implements  /*UserEventListener,*/
                         break;
                     }
                 }            
+        }
     }
+    
+    public void CheckForSpecialCard(String card)
+    {
+        if(card.substring(0,6).equals("wild_0"))
+        {
+            RandomCardMiddle();
+        }
+        else if(card.substring(0,6).equals("wild_1"))
+        {
+            RandomCardMiddle();
+            
+            if(clockwise)
+            {
+                switch(currentPlayerTurn)
+                {
+                    case 0: // 4 kaarten voor computer 1
+                        
+                        break;
+                    case 1: // 4 kaarten voor computer 2
+                        
+                        break;
+                    case 2: // 4 kaarten voor player
+                        
+                        break;
+                }
+            }
+            else{
+                switch(currentPlayerTurn)
+                {
+                    case 0: // 4 kaarten voor computer 2
+                        
+                        break;
+                    case 1: // 4 kaarten voor player
+                        
+                        break;
+                    case 2: // 4 kaarten voor computer 1
+                        
+                        break;
+                }
+            }
+            
+        }
+        else if(card.substring(card.lastIndexOf('_') + 1).equals("picker.png"))
+        {
+            
+            if(clockwise)
+            {
+                switch(currentPlayerTurn)
+                {
+                    case 0: // 2 kaarten voor computer 1
+                        
+                        break;
+                    case 1: // 2 kaarten voor computer 2
+                        
+                        break;
+                    case 2: // 2 kaarten voor player
+                        
+                        break;
+                }
+            }
+            else{
+                switch(currentPlayerTurn)
+                {
+                    case 0: // 2 kaarten voor computer 2
+                        
+                        break;
+                    case 1: // 2 kaarten voor player
+                        
+                        break;
+                    case 2: // 2 kaarten voor computer 1
+                        
+                        break;
+                }
+            }
+        }
+        else if(card.substring(card.lastIndexOf('_') + 1).equals("reverse.png"))
+        {
+            if(clockwise)
+            {
+                clockwise = false;
+            }
+            else
+            {
+                clockwise = true;
+            }
+        }
+        else if(card.substring(card.lastIndexOf('_') + 1).equals("skip.png"))
+        {
+            if(clockWise)
+        {
+            currentPlayerTurn++;
+            if(currentPlayerTurn > 2)
+            {
+                currentPlayerTurn = 0;
+            }
+        }
+        else
+        {
+            currentPlayerTurn--;
+            if(currentPlayerTurn < 0)
+            {
+                currentPlayerTurn = 2;
+            }
+        }
+        }
     }
-
 
     
     public void NextTurn() //Set next player depending on clockwise turn.
@@ -627,6 +732,10 @@ public class MijnComponent extends HComponent implements  /*UserEventListener,*/
             msg.setTextContent("Compter turn", HVisible.NORMAL_STATE);
             scene.repaint();
             StartComputerTurn(currentPlayerTurn);
+        }
+        else
+        {
+            //player turn op true zetten?
         }
     }
     
