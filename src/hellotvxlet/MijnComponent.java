@@ -28,6 +28,7 @@ import org.havi.ui.event.HActionListener;
 public class MijnComponent extends HComponent implements  /*UserEventListener,*/ HActionListener {
     
     Image background;
+    Image cardDeck;
     int x = 350;
     int y = 0;
     HScene scene;
@@ -42,15 +43,20 @@ public class MijnComponent extends HComponent implements  /*UserEventListener,*/
     Image[] userCardsImages = new Image[15];
     HGraphicButton[] userCardsButtons = new HGraphicButton[12];
     
+    HGraphicButton deck = new HGraphicButton(cardDeck, (720/2)+50, (576/2)-60, 50, 75);
+    
     int userCardsLeft = 7;
     int computer1CardsLeft = 7;
     int computer2CardsLeft = 7;
     
-    int currentPlayerTurn = 0;
+    int currentPlayerTurn = 0; //0 = player, 1 = pc 1, 2 = pc2
     boolean clockWise = true;
     
     int chanceOfWildCard = 10;
     int maxRandom = 4;
+    
+    String lastCardPlayed;
+    Image lastCardPlayedImage;
     
     public void PlayGame() {
         
@@ -60,28 +66,75 @@ public class MijnComponent extends HComponent implements  /*UserEventListener,*/
         {
             System.out.println("Player Turn!");
             System.out.println("userCardsLeft: " +userCardsLeft);
-            System.out.println("Player cards: ");
-            for(int i = 0; i < userCards.length; i++)
-            {
-                System.out.print(userCards[i] + " - ");
-            }
-            
-            System.out.println("PC1 cards: ");
-            for(int i = 0; i < computer1Cards.length; i++)
-            {
-                System.out.print(computer1Cards[i] + " - ");
-            }
-            System.out.println("PC2 cards: ");
-            for(int i = 0; i < computer2Cards.length; i++)
-            {
-                System.out.print(computer2Cards[i] + " - ");
-            }
             
         }
     }
     
+    public void RandomCardMiddle() {
+        switch(rnd.nextInt(maxRandom)+1)
+            {
+                case 1:
+                    lastCardPlayed = "yellow_";
+                    break;
+                case 2:
+                    lastCardPlayed = "blue_";
+                    break;
+                case 3:
+                    lastCardPlayed = "green_";
+                    break;
+                case 4:
+                    lastCardPlayed = "red_";
+                    break;
+                case 5:
+                    lastCardPlayed = "wild_0.png";
+                    break;
+                case 6:
+                    lastCardPlayed = "wild_1.png";
+                    break;
+                default:
+                    lastCardPlayed = "yellow_";
+                    break;
+            }
+        switch(rnd.nextInt(13))
+                {
+                    case 0:
+                        lastCardPlayed += "0.png";
+                        break;
+                    case 1:
+                        lastCardPlayed += "1.png";
+                        break;
+                    case 2:
+                        lastCardPlayed += "2.png";
+                        break;
+                    case 3:
+                        lastCardPlayed += "3.png";
+                        break;
+                    case 4:
+                        lastCardPlayed += "4.png";
+                        break;
+                    case 5:
+                        lastCardPlayed += "5.png";
+                        break;
+                    case 6:
+                        lastCardPlayed += "6.png";
+                        break;
+                    case 7:
+                        lastCardPlayed += "7.png";
+                        break;
+                    case 8:
+                        lastCardPlayed += "8.png";
+                        break;
+                    case 9:
+                        lastCardPlayed += "9.png";
+                        break;
+                    default:
+                        lastCardPlayed += "0.png";
+                        break;
+                }   
+        lastCardPlayedImage = this.getToolkit().getImage(lastCardPlayed);
+    }
+    
     public void DivideCardsOnStart() {
-        
         
          for(int i = 0; i <7; i++)
         {
@@ -195,7 +248,7 @@ public class MijnComponent extends HComponent implements  /*UserEventListener,*/
                  HGraphicButton links=null,rechts=null;
                  if (i>0) links=userCardsButtons[i-1];
                  if (i<userCards.length-1) rechts=userCardsButtons[i+1];
-              userCardsButtons[i].setFocusTraversal(null,null,links,rechts);
+              userCardsButtons[i].setFocusTraversal(deck,null,links,rechts);
              }
          }      
          userCardsButtons[0].requestFocus();
@@ -381,6 +434,7 @@ public class MijnComponent extends HComponent implements  /*UserEventListener,*/
     }
     
     public String TakeACard() {
+
         for(int i = 0; i <7; i++)
         {
             String card;
@@ -457,6 +511,10 @@ public class MijnComponent extends HComponent implements  /*UserEventListener,*/
                 }   
             }
         return card;
+
+        System.out.println("reached it");
+        return "s";
+
     }
     
 
@@ -477,7 +535,29 @@ public class MijnComponent extends HComponent implements  /*UserEventListener,*/
         
     }
 
+
     
+    public void NextTurn() //Set next player depending on clockwise turn.
+    {
+        if(clockWise)
+        {
+            currentPlayerTurn++;
+            if(currentPlayerTurn > 2)
+            {
+                currentPlayerTurn = 0;
+            }
+        }
+        else
+        {
+            currentPlayerTurn--;
+            if(currentPlayerTurn < 0)
+            {
+                currentPlayerTurn = 2;
+            }
+        }
+    }
+    
+     
 
     public MijnComponent(int x1, int y1, int x2, int y2, HScene scene)
     {
@@ -485,8 +565,16 @@ public class MijnComponent extends HComponent implements  /*UserEventListener,*/
         this.setBounds(x1, y1, x2, y2);
         //C:\Program Files\TechnoTrend\TT-MHP-Browser\fileio\DSMCC\0.0.3
         background = this.getToolkit().getImage("background.jpg");
+        cardDeck = this.getToolkit().getImage("card_back.png");
+        
+        deck.setActionCommand("TakeACard");
+        deck.addHActionListener(this);
+        scene.add(deck);
+        RandomCardMiddle();
         MediaTracker mt = new MediaTracker(this);
         mt.addImage(background, 1);
+        mt.addImage(lastCardPlayedImage, 2);
+        mt.addImage(cardDeck, 3);
         try {
             mt.waitForAll();
         } catch (InterruptedException ex) {
@@ -494,16 +582,25 @@ public class MijnComponent extends HComponent implements  /*UserEventListener,*/
         }
         
         PlayGame();
+        deck.setFocusTraversal(null,userCardsButtons[0],null,null);
     }
     
     
     //OEF 2 BLZ 44
-    public void paint(Graphics g) 
+    public void paint(Graphics g) //scherm is 720 x 576
     {
           g.drawImage(background, 0, y, null);
+          g.drawImage(lastCardPlayedImage, (720/2)-10, (576/2)-60, 50, 75, null);
+          g.drawImage(cardDeck, (720/2)+50, (576/2)-60, 50, 75, null);
     }
 
     public void actionPerformed(ActionEvent arg0) { //If enter is pressed on a card (button)
         System.out.println("ACTION="+arg0.getActionCommand());
+        if(arg0.getActionCommand().equals("TakeACard"))
+        {
+            TakeACard();
+        }
+//        lastCardPlayedImage = this.getToolkit().getImage(("card_back.png"));
+//        scene.repaint();
     }
 }
