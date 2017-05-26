@@ -59,12 +59,14 @@ public class MijnComponent extends HComponent implements  /*UserEventListener,*/
     
     public void PlayGame() {
         
-        DivideCardsOnStart();        
+        DivideCardsOnStart();
+        currentPlayerTurn = 0;
         
         if(currentPlayerTurn == 0)
         {
             System.out.println("Player Turn!");
             System.out.println("userCardsLeft: " +userCardsLeft);
+            
             
         }
     }
@@ -606,7 +608,7 @@ public class MijnComponent extends HComponent implements  /*UserEventListener,*/
             ex.printStackTrace();
         }
         
-        PlayGame();
+        PlayGame();        
         deck.setFocusTraversal(null,userCardsButtons[0],null,null);
     }
     
@@ -617,12 +619,106 @@ public class MijnComponent extends HComponent implements  /*UserEventListener,*/
           g.drawImage(lastCardPlayedImage, (720/2)-10, (576/2)-60, 50, 75, null);
           g.drawImage(cardDeck, (720/2)+50, (576/2)-60, 50, 75, null);
     }
+    
+    public void SetFocusValues() {
+        
+        HGraphicButton links = null;
+        HGraphicButton rechts = null;
+        HGraphicButton down = null;
+        
+        for (int i = 0; i < userCardsButtons.length; i++)
+        {
+            if(userCardsButtons[i] != null)
+            {
+                down = userCardsButtons[i];
+                break;
+            }
+        }
+        deck.setFocusTraversal(null, down, null, null);
+        
+        for(int i = 0; i < userCardsButtons.length; i++)
+        {
+            if(i == 0)
+            {
+                if(userCardsButtons[i] != null)
+                {
+                    for(int j = i+1; j < userCardsButtons.length; j++)
+                    {
+                        if(userCardsButtons[j] != null)
+                        {
+                            rechts = userCardsButtons[j];
+                            break;
+                        }
+                    }
+                    userCardsButtons[i].setFocusTraversal(deck,null,null,rechts);
+                }
+            }
+            
+            if(i == 11)
+            {
+                if(userCardsButtons[i] != null)
+                {
+                    for(int j = i-1; j >= 0; j--)
+                    {
+                        if(userCardsButtons[j] != null)
+                        {
+                            links = userCardsButtons[j];
+                            break;
+                        }
+                    }
+                    userCardsButtons[i].setFocusTraversal(deck,null,links,null);
+                }
+            }
+            
+            if(i != 0 && i != 11)
+            {
+                if(userCardsButtons[i] != null)
+                {
+                    for(int j = i+1; j < userCardsButtons.length; j++)
+                    {
+                        if(userCardsButtons[j] != null)
+                        {
+                            rechts = userCardsButtons[j];
+                            break;
+                        }
+                    }
+                    for(int j = i-1; j >= 0; j--)
+                    {
+                        if(userCardsButtons[j] != null)
+                        {
+                            links = userCardsButtons[j];
+                            break;
+                        }
+                    }
+                    userCardsButtons[i].setFocusTraversal(deck,null,links,rechts);
+                }
+            }
+        }
+    }
 
     public void actionPerformed(ActionEvent arg0) { //If enter is pressed on a card (button)
         System.out.println("ACTION="+arg0.getActionCommand());
-        if(arg0.getActionCommand().equals("TakeACard"))
+        if(currentPlayerTurn == 0)
         {
-            TakeACard();
+          if(arg0.getActionCommand().equals("TakeACard"))
+            {
+                System.out.println(TakeACard());
+            }
+          else
+          {
+              if(CardPlayable(userCards[Integer.parseInt(arg0.getActionCommand())]))
+              {
+                  lastCardPlayed = userCards[Integer.parseInt(arg0.getActionCommand())];
+                  lastCardPlayedImage = this.getToolkit().getImage(lastCardPlayed);
+                  userCards[Integer.parseInt(arg0.getActionCommand())] = null;
+                  userCardsImages[Integer.parseInt(arg0.getActionCommand())] = null;
+                  scene.remove(userCardsButtons[Integer.parseInt(arg0.getActionCommand())]);
+                  userCardsButtons[Integer.parseInt(arg0.getActionCommand())] = null;
+                  scene.repaint();
+                  SetFocusValues();
+              }
+          }
+          
         }
 //        lastCardPlayedImage = this.getToolkit().getImage(("card_back.png"));
 //        scene.repaint();
