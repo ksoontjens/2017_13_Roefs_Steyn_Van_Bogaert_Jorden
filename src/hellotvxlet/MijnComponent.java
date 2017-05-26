@@ -41,11 +41,13 @@ public class MijnComponent extends HComponent implements  /*UserEventListener,*/
     Image[] userCardsImages = new Image[15];
     HGraphicButton[] userCardsButtons = new HGraphicButton[12];
     
+    HGraphicButton deck = new HGraphicButton(cardDeck, (720/2)+50, (576/2)-60, 50, 75);
+    
     int userCardsLeft = 7;
     int computer1CardsLeft = 7;
     int computer2CardsLeft = 7;
     
-    int currentPlayerTurn = 0;
+    int currentPlayerTurn = 0; //0 = player, 1 = pc 1, 2 = pc2
     boolean clockWise = true;
     
     int chanceOfWildCard = 10;
@@ -62,22 +64,6 @@ public class MijnComponent extends HComponent implements  /*UserEventListener,*/
         {
             System.out.println("Player Turn!");
             System.out.println("userCardsLeft: " +userCardsLeft);
-            System.out.println("Player cards: ");
-            for(int i = 0; i < userCards.length; i++)
-            {
-                System.out.print(userCards[i] + " - ");
-            }
-            
-            System.out.println("PC1 cards: ");
-            for(int i = 0; i < computer1Cards.length; i++)
-            {
-                System.out.print(computer1Cards[i] + " - ");
-            }
-            System.out.println("PC2 cards: ");
-            for(int i = 0; i < computer2Cards.length; i++)
-            {
-                System.out.print(computer2Cards[i] + " - ");
-            }
             
         }
     }
@@ -260,7 +246,7 @@ public class MijnComponent extends HComponent implements  /*UserEventListener,*/
                  HGraphicButton links=null,rechts=null;
                  if (i>0) links=userCardsButtons[i-1];
                  if (i<userCards.length-1) rechts=userCardsButtons[i+1];
-              userCardsButtons[i].setFocusTraversal(null,null,links,rechts);
+              userCardsButtons[i].setFocusTraversal(deck,null,links,rechts);
              }
          }      
          userCardsButtons[0].requestFocus();
@@ -446,11 +432,32 @@ public class MijnComponent extends HComponent implements  /*UserEventListener,*/
     }
     
     public String TakeACard() {
+        System.out.println("reached it");
         return "s";
     }
     
     public void CheckIfCardIsGood(String cardToLay) {
         
+    }
+    
+    public void NextTurn() //Set next player depending on clockwise turn.
+    {
+        if(clockWise)
+        {
+            currentPlayerTurn++;
+            if(currentPlayerTurn > 2)
+            {
+                currentPlayerTurn = 0;
+            }
+        }
+        else
+        {
+            currentPlayerTurn--;
+            if(currentPlayerTurn < 0)
+            {
+                currentPlayerTurn = 2;
+            }
+        }
     }
     
     
@@ -463,6 +470,10 @@ public class MijnComponent extends HComponent implements  /*UserEventListener,*/
         //C:\Program Files\TechnoTrend\TT-MHP-Browser\fileio\DSMCC\0.0.3
         background = this.getToolkit().getImage("background.jpg");
         cardDeck = this.getToolkit().getImage("card_back.png");
+        
+        deck.setActionCommand("TakeACard");
+        deck.addHActionListener(this);
+        scene.add(deck);
         RandomCardMiddle();
         MediaTracker mt = new MediaTracker(this);
         mt.addImage(background, 1);
@@ -475,6 +486,7 @@ public class MijnComponent extends HComponent implements  /*UserEventListener,*/
         }
         
         PlayGame();
+        deck.setFocusTraversal(null,userCardsButtons[0],null,null);
     }
     
     
@@ -488,6 +500,10 @@ public class MijnComponent extends HComponent implements  /*UserEventListener,*/
 
     public void actionPerformed(ActionEvent arg0) { //If enter is pressed on a card (button)
         System.out.println("ACTION="+arg0.getActionCommand());
+        if(arg0.getActionCommand().equals("TakeACard"))
+        {
+            TakeACard();
+        }
 //        lastCardPlayedImage = this.getToolkit().getImage(("card_back.png"));
 //        scene.repaint();
     }
