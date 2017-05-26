@@ -539,9 +539,9 @@ public class MijnComponent extends HComponent implements  /*UserEventListener,*/
         }
         else
         {
-            cardNum = card.substring(card.lastIndexOf('_') + 1);
+            cardNum = card.substring(card.lastIndexOf('_') + 1); //should return everything after the '_'
             lastCardNum = lastCardPlayed.substring(lastCardPlayed.lastIndexOf('_') + 1);
-            if(cardNum.substring(0,1).equals(lastCardNum.substring(0,1)))
+            if(cardNum.substring(0,1).equals(lastCardNum.substring(0,1))) //compares the first character, which should be the numbers
             {
                 return true;
             }
