@@ -9,16 +9,7 @@ import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.MediaTracker;
 import java.awt.event.ActionEvent;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Random;
-import java.util.Timer;
-import org.bluray.ui.event.HRcEvent;
-import org.dvb.event.EventManager;
-import org.dvb.event.UserEvent;
-import org.dvb.event.UserEventListener;
-import org.dvb.event.UserEventRepository;
-import org.dvb.ui.DVBColor;
 import org.havi.ui.HComponent;
 import org.havi.ui.HGraphicButton;
 import org.havi.ui.HScene;
@@ -26,7 +17,7 @@ import org.havi.ui.HStaticText;
 import org.havi.ui.HVisible;
 import org.havi.ui.event.HActionListener;
 
-public class MijnComponent extends HComponent implements /*UserEventListener,*/ HActionListener {
+public class MijnComponent extends HComponent implements HActionListener {
 
     Image background;
     Image cardDeck;
