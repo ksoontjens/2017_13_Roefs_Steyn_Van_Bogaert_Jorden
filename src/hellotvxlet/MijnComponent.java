@@ -28,6 +28,7 @@ import org.havi.ui.event.HActionListener;
 public class MijnComponent extends HComponent implements  /*UserEventListener,*/ HActionListener {
     
     Image background;
+    Image cardDeck;
     int x = 350;
     int y = 0;
     HScene scene;
@@ -49,6 +50,9 @@ public class MijnComponent extends HComponent implements  /*UserEventListener,*/
     
     int chanceOfWildCard = 10;
     int maxRandom = 4;
+    
+    String lastCardPlayed;
+    Image lastCardPlayedImage;
     
     public void PlayGame() {
         
@@ -78,8 +82,71 @@ public class MijnComponent extends HComponent implements  /*UserEventListener,*/
         }
     }
     
+    public void RandomCardMiddle() {
+        switch(rnd.nextInt(maxRandom)+1)
+            {
+                case 1:
+                    lastCardPlayed = "yellow_";
+                    break;
+                case 2:
+                    lastCardPlayed = "blue_";
+                    break;
+                case 3:
+                    lastCardPlayed = "green_";
+                    break;
+                case 4:
+                    lastCardPlayed = "red_";
+                    break;
+                case 5:
+                    lastCardPlayed = "wild_0.png";
+                    break;
+                case 6:
+                    lastCardPlayed = "wild_1.png";
+                    break;
+                default:
+                    lastCardPlayed = "yellow_";
+                    break;
+            }
+        switch(rnd.nextInt(13))
+                {
+                    case 0:
+                        lastCardPlayed += "0.png";
+                        break;
+                    case 1:
+                        lastCardPlayed += "1.png";
+                        break;
+                    case 2:
+                        lastCardPlayed += "2.png";
+                        break;
+                    case 3:
+                        lastCardPlayed += "3.png";
+                        break;
+                    case 4:
+                        lastCardPlayed += "4.png";
+                        break;
+                    case 5:
+                        lastCardPlayed += "5.png";
+                        break;
+                    case 6:
+                        lastCardPlayed += "6.png";
+                        break;
+                    case 7:
+                        lastCardPlayed += "7.png";
+                        break;
+                    case 8:
+                        lastCardPlayed += "8.png";
+                        break;
+                    case 9:
+                        lastCardPlayed += "9.png";
+                        break;
+                    default:
+                        lastCardPlayed += "0.png";
+                        break;
+                }   
+        lastCardPlayedImage = this.getToolkit().getImage(lastCardPlayed);
+    }
+    
     public void DivideCardsOnStart() {
-        
         
          for(int i = 0; i <7; i++)
         {
@@ -395,8 +462,12 @@ public class MijnComponent extends HComponent implements  /*UserEventListener,*/
         this.setBounds(x1, y1, x2, y2);
         //C:\Program Files\TechnoTrend\TT-MHP-Browser\fileio\DSMCC\0.0.3
         background = this.getToolkit().getImage("background.jpg");
+        cardDeck = this.getToolkit().getImage("card_back.png");
+        RandomCardMiddle();
         MediaTracker mt = new MediaTracker(this);
         mt.addImage(background, 1);
+        mt.addImage(lastCardPlayedImage, 2);
+        mt.addImage(cardDeck, 3);
         try {
             mt.waitForAll();
         } catch (InterruptedException ex) {
@@ -408,12 +479,16 @@ public class MijnComponent extends HComponent implements  /*UserEventListener,*/
     
     
     //OEF 2 BLZ 44
-    public void paint(Graphics g) 
+    public void paint(Graphics g) //scherm is 720 x 576
     {
           g.drawImage(background, 0, y, null);
+          g.drawImage(lastCardPlayedImage, (720/2)-10, (576/2)-60, 50, 75, null);
+          g.drawImage(cardDeck, (720/2)+50, (576/2)-60, 50, 75, null);
     }
 
     public void actionPerformed(ActionEvent arg0) { //If enter is pressed on a card (button)
         System.out.println("ACTION="+arg0.getActionCommand());
+//        lastCardPlayedImage = this.getToolkit().getImage(("card_back.png"));
+//        scene.repaint();
     }
 }
