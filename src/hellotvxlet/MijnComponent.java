@@ -794,6 +794,20 @@ public class MijnComponent extends HComponent implements  /*UserEventListener,*/
                   userCardsImages[Integer.parseInt(arg0.getActionCommand())] = null;
                   scene.remove(userCardsButtons[Integer.parseInt(arg0.getActionCommand())]);
                   userCardsLeft--;
+                  if(userCardsLeft == 1)
+                  {
+                    msg.setTextContent("PLAYER UNO", HVisible.NORMAL_STATE);
+                    msg.setBackground(Color.GREEN);
+                    msg.setBackgroundMode(HVisible.BACKGROUND_FILL);
+                  }
+                  if(userCardsLeft == 0)
+                  {
+                    msg.setTextContent("GAME WON!!", HVisible.NORMAL_STATE);
+                    msg.setBackground(Color.GREEN);
+                    msg.setBackgroundMode(HVisible.BACKGROUND_FILL);
+                    currentPlayerTurn = -1;
+                    
+                  }
                   userCardsButtons[Integer.parseInt(arg0.getActionCommand())] = null;
                   scene.repaint();
                   SetFocusValues();
