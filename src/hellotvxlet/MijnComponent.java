@@ -575,6 +575,11 @@ public class MijnComponent extends HComponent implements  /*UserEventListener,*/
                 currentPlayerTurn = 2;
             }
         }
+        
+        if(currentPlayerTurn != 0)
+        {
+            StartComputerTurn(currentPlayerTurn)
+        }
     }
     
      
