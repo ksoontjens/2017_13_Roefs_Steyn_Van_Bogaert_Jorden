@@ -1,6 +1,5 @@
 TODO:
 
-- Visualiseer een kaart in het midden
 - Visualiseer computer kaarten (achterkant van uno)
 - speler moet kaart kunnen leggen
 - als spelers kaart legt ==> beurt aan de volgende
@@ -14,3 +13,10 @@ TODO:
 - kaart kunnen nemen van het midden
 
 (prolly incomplete)
+
+
+
+
+DONE
+
+- Visualiseer een kaart in het midden 
