@@ -34,9 +34,11 @@ public class MijnComponent extends HComponent implements  /*UserEventListener,*/
     HScene scene;
     Random rnd = new Random();
     
+
     String[] userCards = new String[12];
     String[] computer1Cards = new String[12];
     String[] computer2Cards = new String[12];
+    string lastPlayedCard;
     
     Image[] userCardsImages = new Image[15];
     HGraphicButton[] userCardsButtons = new HGraphicButton[12];
@@ -432,13 +434,108 @@ public class MijnComponent extends HComponent implements  /*UserEventListener,*/
     }
     
     public String TakeACard() {
+
+        for(int i = 0; i <7; i++)
+        {
+            String card;
+            switch(rnd.nextInt(6)+1)
+            {
+                case 1:
+                    card = "yellow_";
+                    break;
+                case 2:
+                    card = "blue_";
+                    break;
+                case 3:
+                    card = "green_";
+                    break;
+                case 4:
+                    card = "red_";
+                    break;
+                case 5:
+                    card = "wild_0.png";
+                    break;
+                case 6:
+                    card = "wild_1.png";
+                    break;
+                default:
+                    card = "yellow_";
+                    break;
+            }
+            if(!card.equals("wild_0.png") && !card.equals("wild_1.png"))
+            {        
+                switch(rnd.nextInt(13))
+                {
+                    case 0:
+                        card += "0.png";
+                        break;
+                    case 1:
+                        card += "1.png";
+                        break;
+                    case 2:
+                        card += "2.png";
+                        break;
+                    case 3:
+                        card += "3.png";
+                        break;
+                    case 4:
+                        card += "4.png";
+                        break;
+                    case 5:
+                        card += "5.png";
+                        break;
+                    case 6:
+                        card += "6.png";
+                        break;
+                    case 7:
+                        card += "7.png";
+                        break;
+                    case 8:
+                        card += "8.png";
+                        break;
+                    case 9:
+                        card += "9.png";
+                        break;
+                    case 10:
+                        card += "picker.png";
+                        break;
+                    case 11:
+                        card += "reverse.png";
+                        break;
+                    case 12:
+                        card += "skip.png";
+                        break;
+                    default:
+                        card += "0.png";
+                        break;
+                }   
+            }
+        return card;
+
         System.out.println("reached it");
         return "s";
+
     }
     
-    public void CheckIfCardIsGood(String cardToLay) {
+
+    public Bool CardPlayable(String card)
+    {
+        if (card.equals("wild_0.png") || card.equals("wild_1.png"))
+        {
+            return true;
+        }   
+        else if (card.substring(0,3).equals(lastPlayedCard.substring(0,3)))
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
         
     }
+
+
     
     public void NextTurn() //Set next player depending on clockwise turn.
     {
@@ -460,8 +557,7 @@ public class MijnComponent extends HComponent implements  /*UserEventListener,*/
         }
     }
     
-    
-    
+     
 
     public MijnComponent(int x1, int y1, int x2, int y2, HScene scene)
     {
