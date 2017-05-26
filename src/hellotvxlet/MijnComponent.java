@@ -490,7 +490,6 @@ public class MijnComponent extends HComponent implements  /*UserEventListener,*/
     }
     
     
-    //OEF 2 BLZ 44
     public void paint(Graphics g) //scherm is 720 x 576
     {
           g.drawImage(background, 0, y, null);
