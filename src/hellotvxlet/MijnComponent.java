@@ -5,6 +5,7 @@
 
 package hellotvxlet;
 
+import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.MediaTracker;
@@ -22,6 +23,7 @@ import org.dvb.ui.DVBColor;
 import org.havi.ui.HComponent;
 import org.havi.ui.HGraphicButton;
 import org.havi.ui.HScene;
+import org.havi.ui.HStaticText;
 import org.havi.ui.HVisible;
 import org.havi.ui.event.HActionListener;
 
@@ -45,7 +47,7 @@ public class MijnComponent extends HComponent implements  /*UserEventListener,*/
     HGraphicButton deck = new HGraphicButton(cardDeck, (720/2)+50, (576/2)-60, 50, 75);
     
     int userCardsLeft = 7;
-    int computer1CardsLeft = 7;
+    int computer1CardsLeft = 12;
     int computer2CardsLeft = 7;
     
     int currentPlayerTurn = 0; //0 = player, 1 = pc 1, 2 = pc2
@@ -56,6 +58,8 @@ public class MijnComponent extends HComponent implements  /*UserEventListener,*/
     
     String lastCardPlayed;
     Image lastCardPlayedImage;
+    
+    HStaticText msg= new HStaticText("Player Turn", 10, 576/2-120, 200, 200);
     
     public void PlayGame() {
         
@@ -69,20 +73,33 @@ public class MijnComponent extends HComponent implements  /*UserEventListener,*/
             
             
         }
+        
+        DrawComputerCards();
     }
     
-//    public void DrawComputerCards() {
-//        Image cardBack = this.getToolkit().getImage("yellow_0.png");
-//        HGraphicButton[] pcCards = new HGraphicButton[12];
-//        for(int i = 0; i < computer1CardsLeft; i++)
-//        {
-//            pcCards[i] = new HGraphicButton(cardBack, (5+(i*55)),0, 50, 75);
-//            scene.add(pcCards[i]);
-//        }
-//        scene.repaint();
-//    }
+    public void DrawComputerCards() //Call this fucntion every time computer picks or lays a card so they get added to the scene
+    {
+        Image cardBack = this.getToolkit().getImage("card_back.png");
+        HGraphicButton[] pc2Cards = new HGraphicButton[12];
+        HGraphicButton [] pc1Cards = new HGraphicButton[12];
+        for(int i = 0; i < computer1CardsLeft; i++)
+        {
+            pc1Cards[i] = new HGraphicButton(cardBack, (5+(i*30)),5, 30, 44);
+            pc1Cards[i].setResizeMode(HVisible.RESIZE_ARBITRARY);
+            scene.add(pc1Cards[i]);
+        }
+        
+        for(int i = 0; i < computer2CardsLeft; i++)
+        {
+            pc2Cards[i] = new HGraphicButton(cardBack, 690,(5+(i*44)), 30, 44);
+            pc2Cards[i].setResizeMode(HVisible.RESIZE_ARBITRARY);
+            scene.add(pc2Cards[i]);
+        }
+        scene.repaint();
+    }
     
-    public void RandomCardMiddle() {
+    public void RandomCardMiddle() //Call on start so a random card gets set in the middle
+    {
         switch(rnd.nextInt(maxRandom)+1)
             {
                 case 1:
@@ -146,7 +163,8 @@ public class MijnComponent extends HComponent implements  /*UserEventListener,*/
         lastCardPlayedImage = this.getToolkit().getImage(lastCardPlayed);
     }
     
-    public void DivideCardsOnStart() {
+    public void DivideCardsOnStart() //Give all players (pcs and player) 7 cards
+    {
         
          for(int i = 0; i <7; i++)
         {
@@ -445,7 +463,8 @@ public class MijnComponent extends HComponent implements  /*UserEventListener,*/
         }
     }
     
-    public String TakeACard() {
+    public String TakeACard() //Get a card from the middle
+    {
 
             String card;
             switch(rnd.nextInt(6)+1)
@@ -525,7 +544,7 @@ public class MijnComponent extends HComponent implements  /*UserEventListener,*/
     }
     
 
-    public boolean CardPlayable(String card)
+    public boolean CardPlayable(String card) //Check if card can be played
     {
         String cardNum;
         String lastCardNum;
@@ -553,7 +572,7 @@ public class MijnComponent extends HComponent implements  /*UserEventListener,*/
         
     }
     
-    public void StartComputerTurn(int computerNum)
+    public void StartComputerTurn(int computerNum) //Let the computer play
     {
         switch (computerNum)
         {
@@ -708,6 +727,10 @@ public class MijnComponent extends HComponent implements  /*UserEventListener,*/
         
         if(currentPlayerTurn != 0)
         {
+            msg.setBackground(Color.RED);
+            msg.setBackgroundMode(HVisible.BACKGROUND_FILL);
+            msg.setTextContent("Compter turn", HVisible.NORMAL_STATE);
+            scene.repaint();
             StartComputerTurn(currentPlayerTurn);
         }
         else
@@ -729,6 +752,7 @@ public class MijnComponent extends HComponent implements  /*UserEventListener,*/
         deck.setActionCommand("TakeACard");
         deck.addHActionListener(this);
         scene.add(deck);
+        scene.add(msg);
         RandomCardMiddle();
         MediaTracker mt = new MediaTracker(this);
         mt.addImage(background, 1);
@@ -752,7 +776,8 @@ public class MijnComponent extends HComponent implements  /*UserEventListener,*/
           g.drawImage(cardDeck, (720/2)+50, (576/2)-60, 50, 75, null);
     }
     
-    public void SetFocusValues() {
+    public void SetFocusValues() //Set the focus traversal values for all player cards
+    {
         
         HGraphicButton links = null;
         HGraphicButton rechts = null;
@@ -763,6 +788,7 @@ public class MijnComponent extends HComponent implements  /*UserEventListener,*/
             if(userCardsButtons[i] != null)
             {
                 down = userCardsButtons[i];
+                userCardsButtons[i].requestFocus();
                 break;
             }
         }
@@ -828,13 +854,44 @@ public class MijnComponent extends HComponent implements  /*UserEventListener,*/
         }
     }
 
-    public void actionPerformed(ActionEvent arg0) { //If enter is pressed on a card (button)
+    public void actionPerformed(ActionEvent arg0) //If enter is pressed on a card (button)
+    {
         System.out.println("ACTION="+arg0.getActionCommand());
         if(currentPlayerTurn == 0)
         {
           if(arg0.getActionCommand().equals("TakeACard"))
             {
-                System.out.println(TakeACard());
+                String cardReceived = TakeACard();
+                System.out.println(cardReceived);
+                userCardsLeft++;
+                if(userCardsLeft <= 12)
+                {
+                    for(int i = 0; i < userCards.length; i++)
+                    {
+                        if(userCards[i] == null)
+                        {
+                            userCards[i] = cardReceived;
+                            userCardsImages[i] = this.getToolkit().getImage(userCards[i]);
+                            userCardsButtons[i] = new HGraphicButton(userCardsImages[i], (5+(i*55)),495, 50, 75);
+                            userCardsButtons[i].setActionCommand(String.valueOf(i));
+                            userCardsButtons[i].addHActionListener(this);
+                            scene.add(userCardsButtons[i]);
+                            scene.popToFront(userCardsButtons[i]);
+                            break;
+                        }
+                    }
+                    scene.repaint();
+                    SetFocusValues();
+                }
+                else
+                {
+                    msg.setTextContent("GAME OVER", HVisible.NORMAL_STATE);
+                    msg.setBackground(Color.RED);
+                    msg.setBackgroundMode(HVisible.BACKGROUND_FILL);
+                    scene.repaint();
+                    currentPlayerTurn = -1;
+                    
+                }
             }
           else
           {
@@ -845,6 +902,21 @@ public class MijnComponent extends HComponent implements  /*UserEventListener,*/
                   userCards[Integer.parseInt(arg0.getActionCommand())] = null;
                   userCardsImages[Integer.parseInt(arg0.getActionCommand())] = null;
                   scene.remove(userCardsButtons[Integer.parseInt(arg0.getActionCommand())]);
+                  userCardsLeft--;
+                  if(userCardsLeft == 1)
+                  {
+                    msg.setTextContent("PLAYER UNO", HVisible.NORMAL_STATE);
+                    msg.setBackground(Color.GREEN);
+                    msg.setBackgroundMode(HVisible.BACKGROUND_FILL);
+                  }
+                  if(userCardsLeft == 0)
+                  {
+                    msg.setTextContent("GAME WON!!", HVisible.NORMAL_STATE);
+                    msg.setBackground(Color.GREEN);
+                    msg.setBackgroundMode(HVisible.BACKGROUND_FILL);
+                    currentPlayerTurn = -1;
+                    
+                  }
                   userCardsButtons[Integer.parseInt(arg0.getActionCommand())] = null;
                   scene.repaint();
                   SetFocusValues();
