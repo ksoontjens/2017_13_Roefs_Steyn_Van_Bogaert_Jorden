@@ -793,6 +793,7 @@ public class MijnComponent extends HComponent implements  /*UserEventListener,*/
                   userCards[Integer.parseInt(arg0.getActionCommand())] = null;
                   userCardsImages[Integer.parseInt(arg0.getActionCommand())] = null;
                   scene.remove(userCardsButtons[Integer.parseInt(arg0.getActionCommand())]);
+                  userCardsLeft--;
                   userCardsButtons[Integer.parseInt(arg0.getActionCommand())] = null;
                   scene.repaint();
                   SetFocusValues();
