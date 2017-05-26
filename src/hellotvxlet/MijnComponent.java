@@ -528,7 +528,7 @@ public class MijnComponent extends HComponent implements  /*UserEventListener,*/
     public boolean CardPlayable(String card)
     {
         String cardNum;
-        String lastCardNum
+        String lastCardNum;
         if (card.equals("wild_0.png") || card.equals("wild_1.png"))
         {
             return true;
