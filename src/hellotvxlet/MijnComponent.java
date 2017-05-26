@@ -38,7 +38,6 @@ public class MijnComponent extends HComponent implements  /*UserEventListener,*/
     String[] userCards = new String[12];
     String[] computer1Cards = new String[12];
     String[] computer2Cards = new String[12];
-    string lastPlayedCard;
     
     Image[] userCardsImages = new Image[15];
     HGraphicButton[] userCardsButtons = new HGraphicButton[12];
@@ -435,8 +434,6 @@ public class MijnComponent extends HComponent implements  /*UserEventListener,*/
     
     public String TakeACard() {
 
-        for(int i = 0; i <7; i++)
-        {
             String card;
             switch(rnd.nextInt(6)+1)
             {
@@ -508,23 +505,20 @@ public class MijnComponent extends HComponent implements  /*UserEventListener,*/
                     default:
                         card += "0.png";
                         break;
-                }   
+                }
+                return card;
             }
-        return card;
-
-        System.out.println("reached it");
-        return "s";
-
+            return card;
     }
     
 
-    public Bool CardPlayable(String card)
+    public boolean CardPlayable(String card)
     {
         if (card.equals("wild_0.png") || card.equals("wild_1.png"))
         {
             return true;
         }   
-        else if (card.substring(0,3).equals(lastPlayedCard.substring(0,3)))
+        else if (card.substring(0,3).equals(lastCardPlayed.substring(0,3)))
         {
             return true;
         }
@@ -586,7 +580,6 @@ public class MijnComponent extends HComponent implements  /*UserEventListener,*/
     }
     
     
-    //OEF 2 BLZ 44
     public void paint(Graphics g) //scherm is 720 x 576
     {
           g.drawImage(background, 0, y, null);
