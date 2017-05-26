@@ -530,6 +530,32 @@ public class MijnComponent extends HComponent implements  /*UserEventListener,*/
         }
         
     }
+    
+    public void StartComputerTurn(Int computerNum)
+    {
+        boolean cardPlayed = false;
+        switch (computerNum)
+            case 1:
+                for(int i = 0; i < computer1Cards.Length; i++)
+                {
+                   if(CardPlayable(computer1Cards[i]))
+                   {
+                        //play computer1Cards[i]
+                        NextTurn();
+                        break;
+                    }
+                }
+            case 2:
+                for(int i = 0; i < computer2Cards.Length; i++)
+                {
+                   if(CardPlayable(computer2Cards[i]))
+                   {
+                        //play computer2Cards[i]
+                        NextTurn();
+                        break;
+                    }
+                }            
+    }
 
 
     
@@ -550,6 +576,11 @@ public class MijnComponent extends HComponent implements  /*UserEventListener,*/
             {
                 currentPlayerTurn = 2;
             }
+        }
+        
+        if(currentPlayerTurn != 0)
+        {
+            StartComputerTurn(currentPlayerTurn)
         }
     }
     
