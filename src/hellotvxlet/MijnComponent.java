@@ -516,6 +516,8 @@ public class MijnComponent extends HComponent implements  /*UserEventListener,*/
 
     public boolean CardPlayable(String card)
     {
+        String cardNum;
+        String lastCardNum
         if (card.equals("wild_0.png") || card.equals("wild_1.png"))
         {
             return true;
@@ -526,14 +528,22 @@ public class MijnComponent extends HComponent implements  /*UserEventListener,*/
         }
         else
         {
-            return false;
+            cardNum = card.substring(card.lastIndexOf('_') + 1);
+            lastCardNum = lastCardPlayed.substring(lastCardPlayed.lastIndexOf('_') + 1);
+            if(cardNum.substring(0,1).equals(lastCardNum.substring(0,1)))
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
         }
         
     }
     
     public void StartComputerTurn(Int computerNum)
     {
-        boolean cardPlayed = false;
         switch (computerNum)
             case 1:
                 for(int i = 0; i < computer1Cards.Length; i++)
