@@ -1,22 +1,14 @@
-TODO:
+Jorden Van Bogaert & Steyn Roefs
 
-- als spelers kaart legt ==> beurt aan de volgende
-- als +4 kaart gelegd wordt ==> volgende speler +4 kaarten en random kleur in midden
-- als nieuwe kleur kaart gelegd wordt ==> random kleur kiezen
-- als speler 1 of pc 1 kaart heeft ==> uno
-- als block kaart gelegd wordt, nextturn + 2 ipv ++ (zodat 1 speler wordt vergslagen)
+MHP UNO GAME
+--------------
 
-(prolly incomplete)
+- Als speler kan je een kaart leggen volgens de originele regels van UNO
+- 2 computers spelen zelf ook. Computers spelen snel, dus het is in praktijk altijd aan de speler
+- Wanneer speler meer dan 12 kaarten heeft, verliest hij en wint de pc
+- Wanneer de pc meer dan 12 kaarten heeft, geeft hij forfeit en wint de speler
 
+- Een msg geeft weer wiens beurt het is (pc gaat zodanig snel dat hier bijna altijd speler's beurt staat)
+- De msg geeft ook aan wanneer de speler gewonnen of verloren heeft
 
-
-
-DONE
-
-- Visualiseer een kaart in het midden 
-- computer logica
-- Visualiseer computer kaarten (achterkant van uno)
-- als speler meer dan 12 kaarten heeft ==> game over
-- kaart kunnen nemen van het midden
-- speler moet kaart kunnen leggen
-- als speler 0 kaart heeft ==> gewonnen
+- De speler wint dus wanneer de computer forfeit geeft OF de speler al zijn kaarten kwijtspeelt.
