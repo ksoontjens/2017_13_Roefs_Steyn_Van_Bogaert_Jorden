@@ -52,13 +52,6 @@ public class MijnComponent extends HComponent implements HActionListener {
         DivideCardsOnStart();
         currentPlayerTurn = 0;
 
-        if (currentPlayerTurn == 0) {
-            System.out.println("Player Turn!");
-            System.out.println("userCardsLeft: " + userCardsLeft);
-
-
-        }
-
         DrawComputerCards();
     }
 
@@ -561,7 +554,7 @@ public class MijnComponent extends HComponent implements HActionListener {
                             break;
                         } else if (i == computer1Cards.length - 1) {
                             String cardReceived = TakeACard();
-                            System.out.println(cardReceived);
+                            System.out.println("PC1 took a card");
                             computer1CardsLeft++;
                             if (computer1CardsLeft <= 12) {
                                 for (int j = 0; j < computer1Cards.length; j++) {
@@ -583,7 +576,7 @@ public class MijnComponent extends HComponent implements HActionListener {
                 }
                 if (cardLaid == false) {
                     String cardReceived = TakeACard();
-                    System.out.println(cardReceived);
+                    System.out.println("PC1 took a card");
                     computer1CardsLeft++;
                     if (computer1CardsLeft <= 12) {
                         for (int j = 0; j < computer1Cards.length; j++) {
@@ -606,13 +599,14 @@ public class MijnComponent extends HComponent implements HActionListener {
                 for (int i = 0; i < computer2Cards.length; i++) {
                     if (computer2Cards[i] != null) {
                         if (CardPlayable(computer2Cards[i])) {
-                            System.out.println("PC legt " + computer2Cards[i]);
+                            System.out.println("PC2 legt " + computer2Cards[i]);
                             //play computer1Cards[i]
                             lastCardPlayed = computer2Cards[i];
                             lastCardPlayedImage = this.getToolkit().getImage(lastCardPlayed);
                             CheckForSpecialCard(computer2Cards[i]);
                             computer2Cards[i] = null;
                             computer2CardsLeft--;
+                            cardLaid = true;
                             if (computer2CardsLeft == 1) {
                                 msg.setTextContent("PC 2 UNO", HVisible.NORMAL_STATE);
                                 msg.setBackground(Color.RED);
@@ -630,7 +624,7 @@ public class MijnComponent extends HComponent implements HActionListener {
                             break;
                         } else if (i == computer2Cards.length - 1) {
                             String cardReceived = TakeACard();
-                            System.out.println(cardReceived);
+                            System.out.println("PC2 takes a card");
                             computer2CardsLeft++;
                             if (computer2CardsLeft <= 12) {
                                 for (int j = 0; j < computer2Cards.length; j++) {
@@ -652,7 +646,6 @@ public class MijnComponent extends HComponent implements HActionListener {
                 }
                 if (cardLaid == false) {
                     String cardReceived = TakeACard();
-                    System.out.println(cardReceived);
                     computer2CardsLeft++;
                     if (computer2CardsLeft <= 12) {
                         for (int j = 0; j < computer2Cards.length; j++) {
@@ -689,7 +682,7 @@ public class MijnComponent extends HComponent implements HActionListener {
                     case 0: // 4 kaarten voor computer 1
 
                         String cardReceived = TakeACard();
-                        System.out.println(cardReceived);
+                        System.out.println("PC1 takes 4 cards");
                         computer1CardsLeft++;
                         if (computer1CardsLeft <= 12) {
                             for (int i = 0; i < computer1Cards.length; i++) {
@@ -707,7 +700,6 @@ public class MijnComponent extends HComponent implements HActionListener {
 
                         }
                         cardReceived = TakeACard();
-                        System.out.println(cardReceived);
                         computer1CardsLeft++;
                         if (computer1CardsLeft <= 12) {
                             for (int i = 0; i < computer1Cards.length; i++) {
@@ -725,7 +717,6 @@ public class MijnComponent extends HComponent implements HActionListener {
 
                         }
                         cardReceived = TakeACard();
-                        System.out.println(cardReceived);
                         computer1CardsLeft++;
                         if (computer1CardsLeft <= 12) {
                             for (int i = 0; i < computer1Cards.length; i++) {
@@ -743,7 +734,6 @@ public class MijnComponent extends HComponent implements HActionListener {
 
                         }
                         cardReceived = TakeACard();
-                        System.out.println(cardReceived);
                         computer1CardsLeft++;
                         if (computer1CardsLeft <= 12) {
                             for (int i = 0; i < computer1Cards.length; i++) {
@@ -765,7 +755,7 @@ public class MijnComponent extends HComponent implements HActionListener {
                     case 1: // 4 kaarten voor computer 2
 
                         cardReceived = TakeACard();
-                        System.out.println(cardReceived);
+                        System.out.println("PC2 takes 4 cards");
                         computer2CardsLeft++;
                         if (computer2CardsLeft <= 12) {
                             for (int i = 0; i < computer2Cards.length; i++) {
@@ -783,7 +773,6 @@ public class MijnComponent extends HComponent implements HActionListener {
 
                         }
                         cardReceived = TakeACard();
-                        System.out.println(cardReceived);
                         computer2CardsLeft++;
                         if (computer2CardsLeft <= 12) {
                             for (int i = 0; i < computer2Cards.length; i++) {
@@ -801,7 +790,6 @@ public class MijnComponent extends HComponent implements HActionListener {
 
                         }
                         cardReceived = TakeACard();
-                        System.out.println(cardReceived);
                         computer2CardsLeft++;
                         if (computer2CardsLeft <= 12) {
                             for (int i = 0; i < computer2Cards.length; i++) {
@@ -819,7 +807,6 @@ public class MijnComponent extends HComponent implements HActionListener {
 
                         }
                         cardReceived = TakeACard();
-                        System.out.println(cardReceived);
                         computer2CardsLeft++;
                         if (computer2CardsLeft <= 12) {
                             for (int i = 0; i < computer2Cards.length; i++) {
@@ -839,9 +826,8 @@ public class MijnComponent extends HComponent implements HActionListener {
                         DrawComputerCards();
                         break;
                     case 2: // 4 kaarten voor player
-
+                        System.out.println("Player takes 4 cards");
                         cardReceived = TakeACard();
-                        System.out.println(cardReceived);
                         userCardsLeft++;
                         if (userCardsLeft <= 12) {
                             for (int i = 0; i < userCards.length; i++) {
@@ -867,7 +853,6 @@ public class MijnComponent extends HComponent implements HActionListener {
 
                         }
                         cardReceived = TakeACard();
-                        System.out.println(cardReceived);
                         userCardsLeft++;
                         if (userCardsLeft <= 12) {
                             for (int i = 0; i < userCards.length; i++) {
@@ -893,7 +878,6 @@ public class MijnComponent extends HComponent implements HActionListener {
 
                         }
                         cardReceived = TakeACard();
-                        System.out.println(cardReceived);
                         userCardsLeft++;
                         if (userCardsLeft <= 12) {
                             for (int i = 0; i < userCards.length; i++) {
@@ -919,7 +903,6 @@ public class MijnComponent extends HComponent implements HActionListener {
 
                         }
                         cardReceived = TakeACard();
-                        System.out.println(cardReceived);
                         userCardsLeft++;
                         if (userCardsLeft <= 12) {
                             for (int i = 0; i < userCards.length; i++) {
@@ -949,9 +932,8 @@ public class MijnComponent extends HComponent implements HActionListener {
             } else {
                 switch (currentPlayerTurn) {
                     case 0: // 4 kaarten voor computer 2
-
+                        System.out.println("PC2 takes 4 cards");
                         String cardReceived = TakeACard();
-                        System.out.println(cardReceived);
                         computer2CardsLeft++;
                         if (computer2CardsLeft <= 12) {
                             for (int i = 0; i < computer2Cards.length; i++) {
@@ -969,7 +951,6 @@ public class MijnComponent extends HComponent implements HActionListener {
 
                         }
                         cardReceived = TakeACard();
-                        System.out.println(cardReceived);
                         computer2CardsLeft++;
                         if (computer2CardsLeft <= 12) {
                             for (int i = 0; i < computer2Cards.length; i++) {
@@ -987,7 +968,6 @@ public class MijnComponent extends HComponent implements HActionListener {
 
                         }
                         cardReceived = TakeACard();
-                        System.out.println(cardReceived);
                         computer2CardsLeft++;
                         if (computer2CardsLeft <= 12) {
                             for (int i = 0; i < computer2Cards.length; i++) {
@@ -1005,7 +985,6 @@ public class MijnComponent extends HComponent implements HActionListener {
 
                         }
                         cardReceived = TakeACard();
-                        System.out.println(cardReceived);
                         computer2CardsLeft++;
                         if (computer2CardsLeft <= 12) {
                             for (int i = 0; i < computer2Cards.length; i++) {
@@ -1025,9 +1004,8 @@ public class MijnComponent extends HComponent implements HActionListener {
                         DrawComputerCards();
                         break;
                     case 1: // 4 kaarten voor player
-
+                        System.out.println("Player takes 4 cards");
                         cardReceived = TakeACard();
-                        System.out.println(cardReceived);
                         userCardsLeft++;
                         if (userCardsLeft <= 12) {
                             for (int i = 0; i < userCards.length; i++) {
@@ -1053,7 +1031,6 @@ public class MijnComponent extends HComponent implements HActionListener {
 
                         }
                         cardReceived = TakeACard();
-                        System.out.println(cardReceived);
                         userCardsLeft++;
                         if (userCardsLeft <= 12) {
                             for (int i = 0; i < userCards.length; i++) {
@@ -1079,7 +1056,6 @@ public class MijnComponent extends HComponent implements HActionListener {
 
                         }
                         cardReceived = TakeACard();
-                        System.out.println(cardReceived);
                         userCardsLeft++;
                         if (userCardsLeft <= 12) {
                             for (int i = 0; i < userCards.length; i++) {
@@ -1105,7 +1081,6 @@ public class MijnComponent extends HComponent implements HActionListener {
 
                         }
                         cardReceived = TakeACard();
-                        System.out.println(cardReceived);
                         userCardsLeft++;
                         if (userCardsLeft <= 12) {
                             for (int i = 0; i < userCards.length; i++) {
@@ -1132,9 +1107,8 @@ public class MijnComponent extends HComponent implements HActionListener {
                         }
                         break;
                     case 2: // 4 kaarten voor computer 1
-
+                        System.out.println("PC1 takes 4 cards");
                         cardReceived = TakeACard();
-                        System.out.println(cardReceived);
                         computer1CardsLeft++;
                         if (computer1CardsLeft <= 12) {
                             for (int i = 0; i < computer1Cards.length; i++) {
@@ -1152,7 +1126,6 @@ public class MijnComponent extends HComponent implements HActionListener {
 
                         }
                         cardReceived = TakeACard();
-                        System.out.println(cardReceived);
                         computer1CardsLeft++;
                         if (computer1CardsLeft <= 12) {
                             for (int i = 0; i < computer1Cards.length; i++) {
@@ -1170,7 +1143,6 @@ public class MijnComponent extends HComponent implements HActionListener {
 
                         }
                         cardReceived = TakeACard();
-                        System.out.println(cardReceived);
                         computer1CardsLeft++;
                         if (computer1CardsLeft <= 12) {
                             for (int i = 0; i < computer1Cards.length; i++) {
@@ -1188,7 +1160,6 @@ public class MijnComponent extends HComponent implements HActionListener {
 
                         }
                         cardReceived = TakeACard();
-                        System.out.println(cardReceived);
                         computer1CardsLeft++;
                         if (computer1CardsLeft <= 12) {
                             for (int i = 0; i < computer1Cards.length; i++) {
@@ -1217,7 +1188,7 @@ public class MijnComponent extends HComponent implements HActionListener {
                     case 0: // 2 kaarten voor computer 1
 
                         String cardReceived = TakeACard();
-                        System.out.println(cardReceived);
+                        System.out.println("PC1 takes 2 cards");
                         computer1CardsLeft++;
                         if (computer1CardsLeft <= 12) {
                             for (int i = 0; i < computer1Cards.length; i++) {
@@ -1235,7 +1206,6 @@ public class MijnComponent extends HComponent implements HActionListener {
 
                         }
                         cardReceived = TakeACard();
-                        System.out.println(cardReceived);
                         computer1CardsLeft++;
                         if (computer1CardsLeft <= 12) {
                             for (int i = 0; i < computer1Cards.length; i++) {
@@ -1255,9 +1225,8 @@ public class MijnComponent extends HComponent implements HActionListener {
                         DrawComputerCards();
                         break;
                     case 1: // 2 kaarten voor computer 2
-
+                        System.out.println("PC2 takes 2 cards");
                         cardReceived = TakeACard();
-                        System.out.println(cardReceived);
                         computer2CardsLeft++;
                         if (computer2CardsLeft <= 12) {
                             for (int i = 0; i < computer2Cards.length; i++) {
@@ -1275,7 +1244,6 @@ public class MijnComponent extends HComponent implements HActionListener {
 
                         }
                         cardReceived = TakeACard();
-                        System.out.println(cardReceived);
                         computer2CardsLeft++;
                         if (computer2CardsLeft <= 12) {
                             for (int i = 0; i < computer2Cards.length; i++) {
@@ -1295,9 +1263,8 @@ public class MijnComponent extends HComponent implements HActionListener {
                         DrawComputerCards();
                         break;
                     case 2: // 2 kaarten voor player
-
+                        System.out.print(("Player takes 2 cards"));
                         cardReceived = TakeACard();
-                        System.out.println(cardReceived);
                         userCardsLeft++;
                         if (userCardsLeft <= 12) {
                             for (int i = 0; i < userCards.length; i++) {
@@ -1323,7 +1290,6 @@ public class MijnComponent extends HComponent implements HActionListener {
 
                         }
                         cardReceived = TakeACard();
-                        System.out.println(cardReceived);
                         userCardsLeft++;
                         if (userCardsLeft <= 12) {
                             for (int i = 0; i < userCards.length; i++) {
@@ -1353,9 +1319,8 @@ public class MijnComponent extends HComponent implements HActionListener {
             } else {
                 switch (currentPlayerTurn) {
                     case 0: // 2 kaarten voor computer 2
-
+                        System.out.println("PC2 takes 2 cards");
                         String cardReceived = TakeACard();
-                        System.out.println(cardReceived);
                         computer2CardsLeft++;
                         if (computer2CardsLeft <= 12) {
                             for (int i = 0; i < computer2Cards.length; i++) {
@@ -1373,7 +1338,6 @@ public class MijnComponent extends HComponent implements HActionListener {
 
                         }
                         cardReceived = TakeACard();
-                        System.out.println(cardReceived);
                         computer2CardsLeft++;
                         if (computer2CardsLeft <= 12) {
                             for (int i = 0; i < computer2Cards.length; i++) {
@@ -1395,7 +1359,7 @@ public class MijnComponent extends HComponent implements HActionListener {
                     case 1: // 2 kaarten voor player
 
                         cardReceived = TakeACard();
-                        System.out.println(cardReceived);
+                        System.out.println("Player takes 2 cards");
                         userCardsLeft++;
                         if (userCardsLeft <= 12) {
                             for (int i = 0; i < userCards.length; i++) {
@@ -1421,7 +1385,6 @@ public class MijnComponent extends HComponent implements HActionListener {
 
                         }
                         cardReceived = TakeACard();
-                        System.out.println(cardReceived);
                         userCardsLeft++;
                         if (userCardsLeft <= 12) {
                             for (int i = 0; i < userCards.length; i++) {
@@ -1450,7 +1413,7 @@ public class MijnComponent extends HComponent implements HActionListener {
                     case 2: // 2 kaarten voor computer 1
 
                         cardReceived = TakeACard();
-                        System.out.println(cardReceived);
+                        System.out.println("PC1 takes 2 cards");
                         computer1CardsLeft++;
                         if (computer1CardsLeft <= 12) {
                             for (int i = 0; i < computer1Cards.length; i++) {
@@ -1468,7 +1431,6 @@ public class MijnComponent extends HComponent implements HActionListener {
 
                         }
                         cardReceived = TakeACard();
-                        System.out.println(cardReceived);
                         computer1CardsLeft++;
                         if (computer1CardsLeft <= 12) {
                             for (int i = 0; i < computer1Cards.length; i++) {
@@ -1498,14 +1460,10 @@ public class MijnComponent extends HComponent implements HActionListener {
         } else if (card.substring(card.lastIndexOf('_') + 1).equals("skip.png")) {
             if (clockWise) {
                 currentPlayerTurn++;
-                if (currentPlayerTurn > 2) {
-                    currentPlayerTurn = 0;
-                }
+                NextTurn();
             } else {
                 currentPlayerTurn--;
-                if (currentPlayerTurn < 0) {
-                    currentPlayerTurn = 2;
-                }
+                NextTurn();
             }
         }
     }
@@ -1661,11 +1619,9 @@ public class MijnComponent extends HComponent implements HActionListener {
 
     public void actionPerformed(ActionEvent arg0) //If enter is pressed on a card (button)
     {
-        System.out.println("ACTION=" + arg0.getActionCommand());
         if (currentPlayerTurn == 0) {
             if (arg0.getActionCommand().equals("TakeACard")) {
                 String cardReceived = TakeACard();
-                System.out.println(cardReceived);
                 userCardsLeft++;
                 if (userCardsLeft <= 12) {
                     for (int i = 0; i < userCards.length; i++) {
@@ -1698,7 +1654,6 @@ public class MijnComponent extends HComponent implements HActionListener {
                     lastCardPlayed = userCards[Integer.parseInt(arg0.getActionCommand())];
                     lastCardPlayedImage = this.getToolkit().getImage(lastCardPlayed);
                     CheckForSpecialCard(userCards[Integer.parseInt(arg0.getActionCommand())]);
-                    System.out.println(lastCardPlayed);
                     userCards[Integer.parseInt(arg0.getActionCommand())] = null;
                     userCardsImages[Integer.parseInt(arg0.getActionCommand())] = null;
                     scene.remove(userCardsButtons[Integer.parseInt(arg0.getActionCommand())]);
@@ -1725,7 +1680,5 @@ public class MijnComponent extends HComponent implements HActionListener {
             }
 
         }
-//        lastCardPlayedImage = this.getToolkit().getImage(("card_back.png"));
-//        scene.repaint();
     }
 }
